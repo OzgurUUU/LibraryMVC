@@ -10,7 +10,7 @@ const uyari = document.getElementById("uyari");
 input2.addEventListener("click", () => {
     const cevap = parseInt(input.value);
     
-    const ready = checkPassword(inputPassword);
+    const ready = checkPassword();
     console.log(ready);
     if (ready) {
         if (cevap === dogruCevap) {

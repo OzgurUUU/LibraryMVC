@@ -63,3 +63,4 @@ C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.
 C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.pdb
 C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.genruntimeconfig.cache
 C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\ref\LibraryMVC.dll
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.sourcelink.json
