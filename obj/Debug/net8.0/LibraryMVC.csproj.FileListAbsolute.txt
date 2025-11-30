@@ -1,0 +1,65 @@
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\appsettings.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.staticwebassets.runtime.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.staticwebassets.endpoints.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.exe
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.deps.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.runtimeconfig.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.dll
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.pdb
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.AssemblyInfoInputs.cache
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.AssemblyInfo.cs
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.csproj.CoreCompileInputs.cache
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.RazorAssemblyInfo.cache
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.RazorAssemblyInfo.cs
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\scopedcss\bundle\LibraryMVC.styles.css
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\scopedcss\projectbundle\LibraryMVC.bundle.scp.css
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.dll
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\refint\LibraryMVC.dll
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.pdb
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.genruntimeconfig.cache
+C:\Users\EXCALIBUR\source\repos\LibraryMVC\LibraryMVC\obj\Debug\net8.0\ref\LibraryMVC.dll
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\appsettings.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.staticwebassets.runtime.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.staticwebassets.endpoints.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.exe
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.deps.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.runtimeconfig.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.dll
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\bin\Debug\net8.0\LibraryMVC.pdb
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.AssemblyInfoInputs.cache
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.AssemblyInfo.cs
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.csproj.CoreCompileInputs.cache
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.RazorAssemblyInfo.cache
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.RazorAssemblyInfo.cs
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\scopedcss\bundle\LibraryMVC.styles.css
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\scopedcss\projectbundle\LibraryMVC.bundle.scp.css
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.dll
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\refint\LibraryMVC.dll
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.pdb
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\LibraryMVC.genruntimeconfig.cache
+C:\Users\Özgür Üçdağ\Desktop\code\mvc\LibraryMVC\LibraryMVC\obj\Debug\net8.0\ref\LibraryMVC.dll

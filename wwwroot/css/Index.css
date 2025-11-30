@@ -1,0 +1,48 @@
+﻿.search {
+    position: relative;
+    width: 40%;
+    height: 200px;
+    left: -35px;
+    margin: auto;
+    margin-top: 150px;
+    border-radius: 40px;
+    text-align: center;
+    padding-top: 30px;
+}
+
+p {
+    font-size: 30px;
+    font-weight: lighter;
+    color: whitesmoke;
+}
+
+input[type="text"] {
+    width: 60%;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid gray;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+.h1search {
+    font-size: 66px;
+    font-weight: bolder;
+    left: 0%;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.lensimg {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    left: 170px;
+    top: -35px;
+    z-index: 2;
+}
+
+input[type="text"]:focus {
+    font-size: 16px;
+    color: gray;
+}

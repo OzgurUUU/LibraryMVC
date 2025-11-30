@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+<link href="~/css/Register.css" rel="stylesheet" />
+
+<div class="giris">
+    
+    <h1>Kayıt Ol</h1>
+
+    <div>
+        <h3>Kullanıcı Adı :</h3><br>
+        <input type="text" placeholder="Email / Kullanıcı Adı" id="username">
+    </div>
+
+    <div>
+        <h3>Şifre :</h3><br>
+        <input type="password" placeholder="Şifreniz" id="password" disabled="disabled" />
+    </div>
+
+    <div>
+        <h3>Doğum Tarihi :</h3><br>
+        <input type="date">
+    </div>
+
+    <div>
+        <h3>Telefon Numaranız :</h3><br>
+        <input type="text" id="numara" placeholder="05xxxxxxxxx">
+    </div>
+
+    <div>
+        <h3>Cinsiyet :</h3><br>
+        <select>
+            <option value="Erkek">Erkek</option>
+            <option value="Kadın">Kadın</option>
+        </select>
+    </div>
+
+    <div style="margin-top: 15px;">
+        <h3 id="soru"></h3>
+        <input type="text" id="cevap" placeholder="Cevabı yazınız">
+        <p id="uyari" style="color: rgb(255, 153, 153); font-size: 13px;"></p>
+    </div>
+
+    <br>
+    <button class="btn_giris" id="kayit-btn" >Kayıt Ol</button>
+
+    <p>Hesabın var mı? <a asp-controller="Home" asp-action="Login">Giriş yap</a></p>
+</div>
+
+
+<script src="~/js/girisyap.js"></script>
+<script src="~/js/Register.js"></script>

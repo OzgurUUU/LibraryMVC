@@ -1,0 +1,80 @@
+body {
+    background-image: url('/assets/WhatsApp Image 2025-10-17 at 10.51.22.jpeg'); /* resmin yolu */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.maindiv {
+    position: relative;
+    width: 95%;
+    height: 100px;
+    border: 1px solid black;
+    background-color: white;
+    margin-top: 50px;
+    box-shadow: 5px 5px 15px grey;
+    border-radius: 40px;
+    margin-left: 0px;
+    left: 20px;
+    z-index: 1;
+}
+
+.maindiv h1 a{
+    position: relative;
+    text-decoration: none;
+    top: 25px;
+    margin-left: 0px;
+    font-weight: lighter;
+    text-decoration: none;
+    font-size: 34px;
+    color: black;
+}
+.maindiv h1 {
+    display: inline;
+    margin-left: 35px;
+    margin-bottom: 15px;
+}
+.maindiv h1 a:hover {
+    padding: 20px;
+        color: black;
+        background-color: lightgray;
+        border-radius: 10px;
+        font-size: 40px;
+}
+a.navButton {
+    position: relative;
+    top: 20px;
+    padding: 20px;
+    right: -1300px;
+    font-weight: lighter;
+    text-decoration: none;
+    font-size: 24px;
+    color: black;
+}
+
+    a.navButton:hover {
+        padding: 20px;
+        color: black;
+        background-color: lightgray;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+body {
+    background-color: #f0f0f0;
+    width: 100%;
+    height: 93%;
+}
+
+img {
+    position: absolute;
+    width: 101%;
+    top: -10px;
+    left: -1px;
+    height: 102%;
+    z-index: -1;
+    opacity: 1;
+}
+
+
