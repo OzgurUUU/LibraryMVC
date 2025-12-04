@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "ManageBook";
 }
+@model LibraryMVC.Models.Book
 <div class="container mt-5 content-wrapper">
     <div class="page-header">
         <h1 class="text-center mb-2" style="color: aliceblue;">📚 Kitap Yönetimi Sistemi</h1>
@@ -25,11 +26,8 @@
                                 <label for="title" class="font-weight-bold">
                                     📖 Kitap Adı <span class="text-danger">*</span>
                                 </label>
-                                <input type="text"
-                                       id="title"
-                                       name="title"
-                                       class="form-control form-control-lg"
-                                       placeholder="Örn: Masumiyet" />
+                                <input type="text" id="title" name="title" class="form-control form-control-lg"
+                                    placeholder="Örn: Masumiyet" />
                                 <small class="form-text text-muted">Kitabın tam adını girin</small>
                             </div>
                         </div>
@@ -40,12 +38,8 @@
                                 <label for="author" class="font-weight-bold">
                                     ✍️ Yazar <span class="text-danger">*</span>
                                 </label>
-                                <input type="text"
-                                       id="author"
-                                       name="author"
-                                       class="form-control form-control-lg"
-                                       placeholder="Örn: Orhan Pamuk"
-                                       disabled />
+                                <input type="text" id="author" name="author" class="form-control form-control-lg"
+                                    placeholder="Örn: Orhan Pamuk" disabled />
                                 <small class="form-text text-muted">Yazarın adını girin</small>
                             </div>
                         </div>
@@ -56,14 +50,8 @@
                                 <label for="year" class="font-weight-bold">
                                     📅 Yayın Yılı <span class="text-danger">*</span>
                                 </label>
-                                <input type="number"
-                                       id="year"
-                                       name="year"
-                                       class="form-control form-control-lg"
-                                       placeholder="Örn: 2008"
-                                       min="1500"
-                                       max="2025"
-                                       disabled />
+                                <input type="number" id="year" name="year" class="form-control form-control-lg"
+                                    placeholder="Örn: 2008" min="1500" max="2025" disabled />
                                 <small class="form-text text-muted">Kitabın yayın yılını girin</small>
                             </div>
                         </div>
@@ -74,12 +62,8 @@
                                 <label for="image" class="font-weight-bold">
                                     🖼️ Kitap Fotoğraf Linki <span class="text-danger">*</span>
                                 </label>
-                                <input type="url"
-                                       id="image"
-                                       name="image"
-                                       class="form-control form-control-lg"
-                                       placeholder="https://example.com/image.jpg"
-                                       disabled />
+                                <input type="url" id="image" name="image" class="form-control form-control-lg"
+                                    placeholder="https://example.com/image.jpg" disabled />
                                 <small class="form-text text-muted">Kitap kapağının URL adresini girin</small>
                             </div>
                         </div>
@@ -90,34 +74,22 @@
                                 <label class="font-weight-bold"> 🏷️ Kitap Türü </label>
                                 <div class="genre-options">
                                     <div class="form-check">
-                                        <input class="form-check-input"
-                                               type="checkbox"
-                                               id="klasik"
-                                               name="tur"
-                                               value="Klasik"
-                                               disabled />
+                                        <input class="form-check-input" type="checkbox" id="klasik" name="tur"
+                                            value="Klasik" disabled />
                                         <label class="form-check-label" for="klasik">
                                             📜 Klasik
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input"
-                                               type="checkbox"
-                                               id="roman"
-                                               name="tur"
-                                               value="Roman"
-                                               disabled />
+                                        <input class="form-check-input" type="checkbox" id="roman" name="tur"
+                                            value="Roman" disabled />
                                         <label class="form-check-label" for="roman">
                                             📕 Roman
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input"
-                                               type="checkbox"
-                                               id="hikaye"
-                                               name="tur"
-                                               value="Hikaye"
-                                               disabled />
+                                        <input class="form-check-input" type="checkbox" id="hikaye" name="tur"
+                                            value="Hikaye" disabled />
                                         <label class="form-check-label" for="hikaye">
                                             📘 Hikaye
                                         </label>
@@ -127,8 +99,7 @@
                             </div>
                         </div>
 
-                        <button type="submit"
-                                class="btn btn-success btn-lg btn-block submit-btn">
+                        <button type="submit" class="btn btn-success btn-lg btn-block submit-btn">
                             <span class="btn-icon">✅</span> Kitabı Kaydet
                         </button>
                     </form>
@@ -178,28 +149,25 @@
                         <table class="table table-hover mb-0">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Kapak</th>
-                                    <th>Kitap Bilgileri</th>
+                                    <th>Tür</th>
+                                    <th>Kitap Adı</th>
                                     <th>Yazar</th>
-                                    <th>Yıl</th>
+                                    <th>Yayın Yılı</th>
                                 </tr>
                             </thead>
                             <tbody id="bookTableBody">
                                 <tr>
                                     <td>
-                                        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ86ta_Z3I0tTQJysNkQXxuyrq4SsPS5oTsltUZgbVIHRk8DD-T"
-                                             alt="Kitap Kapağı"
-                                             class="book-cover" />
+                                        <p>@Model.Genre</p>
                                     </td>
                                     <td>
-                                        <strong>Masumiyet</strong>
-                                        <br /><small class="text-muted">Türkçe Roman</small>
+                                        <p>@Model.Title</p>
                                     </td>
                                     <td>
-                                        <small>Orhan Pamuk</small>
+                                        <p>@Model.Author</p>
                                     </td>
                                     <td>
-                                        <span class="badge badge-primary">2008</span>
+                                        <p>@Model.Year</p>
                                     </td>
                                 </tr>
                             </tbody>

@@ -27,15 +27,11 @@ namespace LibraryMVC.Controllers
         {
             return View();
         }
-
-        public IActionResult Loan()
+        public IActionResult Contact()
         {
             return View();
         }
-        public IActionResult ManageBook()
-        {
-            return View();
-        }
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
