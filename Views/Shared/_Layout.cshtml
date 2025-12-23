@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LibraryMVC.styles.css" asp-append-version="true" />
+</head>
+<body>
+    
+        <div class="maindiv">
+    <h1><a asp-controller="Home" asp-action="Index">LIBRARY</a></h1>
+    <div class="nav-links">
+            @* Yetki bazlı butonlar (Ortada/Sağda görünecekler) *@
+    @if (User.IsInRole("Admin"))
+            {
+                <a class="navButton" asp-controller="Book" asp-action="ManageBook">Kitap Yönetimi</a>
+                <a class="navButton" asp-controller="User" asp-action="Index">Kullanici Yönetimi</a>
+                <a class="navButton" asp-controller="Loan" asp-action="Index">Kiralama Yönetimi</a>
+            }
+
+            @if (User.IsInRole("Student"))
+            {
+                <a class="navButton" asp-controller="Loan" asp-action="LoanForStudent">Kitap Kirala</a>
+            }
+
+            @* Her zaman görünen İletişim *@
+            <a class="navButton" asp-controller="Home" asp-action="Contact">İletişim</a>
+
+            @* Giriş/Çıkış Durumu (En Sağda) *@
+    @if (User.Identity.IsAuthenticated)
+            {
+                <a class="navButton" asp-controller="Home" asp-action="Logout">Çıkış Yap</a>
+            }
+            else
+            {
+                <a class="navButton" asp-controller="Home" asp-action="Login">Giriş Yap</a>
+            }
+        </div>
+    
+</div>
+
+        <div class="background-overlay"></div>
+   
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

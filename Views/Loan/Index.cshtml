@@ -1,0 +1,297 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+@model List<Book>
+
+
+<div class="background-overlay"></div>
+
+<div class="container mt-5 content-wrapper">
+    <div class="page-header">
+        <h1 class="text-center mb-2" style="color: aliceblue;">📖 Kitap Kiralama Sistemi</h1>
+        <br /><br /><br />
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-lg border-0 form-card">
+                <div class="card-header text-white" style="background-color: #e46b00;opacity: 0.8;">
+                    <h4 class="mb-0">
+                        <span class="header-icon">➕</span> Yeni Kiralama İşlemi
+                    </h4>
+                    
+                </div>
+                <div class="card-body">
+                    <form method="post" id="loanForm">
+                        <div class="form-step">
+                            <div class="step-badge">1</div>
+                            <div class="form-group">
+                                <label for="studentName" class="font-weight-bold">
+                                    👤 Öğrenci Adı Soyadı <span class="text-danger">*</span>
+                                </label>
+                                <input type="text"
+                                       id="studentName"
+                                       name="studentName"
+                                       class="form-control form-control-lg"
+                                       placeholder="Örn: Ahmet Yılmaz" />
+                                <small class="form-text text-muted">Öğrencinin tam adını girin</small>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <div class="step-badge">2</div>
+                            <div class="form-group">
+                                <label for="studentNumber" class="font-weight-bold">
+                                    🎓 Öğrenci Numarası <span class="text-danger">*</span>
+                                </label>
+                                <input type="text"
+                                       id="studentNumber"
+                                       name="studentNumber"
+                                       class="form-control form-control-lg"
+                                       placeholder="Örn: 2024001"
+                                       disabled />
+                                <small class="form-text text-muted">Öğrenci numarasını girin</small>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <div class="step-badge">3</div>
+                            <div class="form-group">
+                                <label for="studentEmail" class="font-weight-bold">
+                                    📧 E-posta Adresi <span class="text-danger">*</span>
+                                </label>
+                                <input type="email"
+                                       id="studentEmail"
+                                       name="studentEmail"
+                                       class="form-control form-control-lg"
+                                       placeholder="Örn: ogrenci@mail.com"
+                                       disabled />
+                                <small class="form-text text-muted">Hatırlatma için e-posta</small>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <div class="step-badge">4</div>
+                            <div class="form-group">
+                                <label for="bookSelect" class="font-weight-bold">
+                                    📚 Kiralanacak Kitap <span class="text-danger">*</span>
+                                </label>
+                                <select id="bookSelect"
+                                        name="bookSelect"
+                                        class="form-control form-control-lg"
+                                        disabled>
+                                    <option value="">-- Kitap Seçiniz --</option>
+                                    @foreach (var book in Model)
+                                    {
+                                        <option value="@book.BookId">
+                                        @book.Title - @book.Author (@book.Year)
+                                    </option>
+                                    }
+                                </select>
+                                <small class="form-text text-muted">Kütüphanedeki mevcut kitaplardan seçin</small>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <div class="step-badge">5</div>
+                            <div class="form-group">
+                                <label for="loanDate" class="font-weight-bold">
+                                    📅 Kiralama Tarihi <span class="text-danger">*</span>
+                                </label>
+                                <input type="date"
+                                       id="loanDate"
+                                       name="loanDate"
+                                       class="form-control form-control-lg"
+                                       disabled />
+                                <small class="form-text text-muted">Kitabın teslim alındığı tarih</small>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <div class="step-badge">6</div>
+                            <div class="form-group">
+                                <label for="returnDate" class="font-weight-bold">
+                                    🔙 İade Tarihi <span class="text-danger">*</span>
+                                </label>
+                                <input type="date"
+                                       id="returnDate"
+                                       name="returnDate"
+                                       class="form-control form-control-lg"
+                                       disabled />
+                                <small class="form-text text-muted">Kitabın iade edileceği tarih (max 30 gün)</small>
+                            </div>
+                        </div>
+
+                        <div class="form-step">
+                            <div class="step-badge">7</div>
+                            <div class="form-group">
+                                <label for="notes" class="font-weight-bold">
+                                    📝 Ek Notlar
+                                </label>
+                                <textarea id="notes"
+                                          name="notes"
+                                          class="form-control"
+                                          rows="3"
+                                          placeholder="Varsa özel durumlar, hasarlar veya notlar..."
+                                          disabled></textarea>
+                                <small class="form-text text-muted">Opsiyonel - Eklemek istediğiniz notlar</small>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-success btn-lg btn-block submit-btn">
+                            <span class="btn-icon">✅</span> Kiralama Kaydı Oluştur
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-lg border-0 statistics-card mb-4">
+                <div class="card-header text-white" style="background-color: #e46b00;opacity: 0.8;">
+                    <h4 class="mb-0">
+                        <span class="header-icon">📊</span> İstatistikler
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="stat-box stat-active">
+                                <h3 class="stat-number">3</h3>
+                                <p class="stat-label">Aktif</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-box stat-warning">
+                                <h3 class="stat-number">1</h3>
+                                <p class="stat-label">Yakında</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-box stat-danger">
+                                <h3 class="stat-number">1</h3>
+                                <p class="stat-label">Gecikmiş</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-lg border-0 mb-5 table-card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <span class="header-icon">📋</span> Aktif Kiralamalar
+                    </h4>
+                </div>
+                <div class="card-body p-0 ">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Öğrenci</th>
+                                    <th>Kitap</th>
+                                    <th>İade</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody id="loanTableBody">
+                                <tr>
+                                    <td>
+                                        <strong>Ahmet Yılmaz</strong>
+                                        <br /><p id="a-id"><small class="text-muted">2021001</small></p>
+                                    </td>
+                                    <td>
+                                        <small>Masumiyet</small>
+                                        <br /><small class="text-muted">O. Pamuk</small>
+                                    </td>
+                                    <td>
+                                        <small>15.11.2024</small>
+                                        <br /><small class="text-success">5 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Aktif</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Ayşe Demir</strong>
+                                        <br /><small class="text-muted">2021002</small>
+                                    </td>
+                                    <td>
+                                        <small>Suç ve Ceza</small>
+                                        <br /><small class="text-muted">Dostoyevski</small>
+                                    </td>
+                                    <td>
+                                        <small>12.11.2024</small>
+                                        <br /><small class="text-warning">2 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-warning">Yakında</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Mehmet Kaya</strong>
+                                        <br /><small class="text-muted">2021003</small>
+                                    </td>
+                                    <td>
+                                        <small>Simyacı</small>
+                                        <br /><small class="text-muted">P. Coelho</small>
+                                    </td>
+                                    <td>
+                                        <small>05.11.2024</small>
+                                        <br /><small class="text-danger">5 gün geçti</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-danger">Gecikmiş</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Zeynep Ak</strong>
+                                        <br /><small class="text-muted">2021004</small>
+                                    </td>
+                                    <td>
+                                        <small>Sefiller</small>
+                                        <br /><small class="text-muted">V. Hugo</small>
+                                    </td>
+                                    <td>
+                                        <small>20.11.2024</small>
+                                        <br /><small class="text-success">10 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Aktif</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Ali Yıldız</strong>
+                                        <br /><small class="text-muted">2021005</small>
+                                    </td>
+                                    <td>
+                                        <small>Beyaz Zambaklar</small>
+                                        <br /><small class="text-muted">G. Petrov</small>
+                                    </td>
+                                    <td>
+                                        <small>18.11.2024</small>
+                                        <br /><small class="text-success">8 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Aktif</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                <partial name="BookTable" model="@Model" />
+            
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/js/Loan.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>

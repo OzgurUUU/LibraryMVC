@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="card shadow-lg border-0 table-card">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">
+            <span class="header-icon">📚</span> Kayıtlı Kitaplar
+        </h4>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Tür</th>
+                        <th>Kitap Adı</th>
+                        <th>Yazar</th>
+                        <th>Yayın Yılı</th>
+                        @if (ViewContext.RouteData.Values["action"]?.ToString() == "ManageBook")
+                        {
+                            <th>Aksiyonlar</th>
+                        }
+                        
+                    </tr>
+                </thead>
+
+                <tbody id="bookTableBody">
+
+                    @foreach (var book in Model)
+                    {
+                        <partial name="ShowBooks" model="book" />
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

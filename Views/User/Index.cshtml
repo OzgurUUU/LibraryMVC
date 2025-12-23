@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Student>
+<div class="container mt-5 content-wrapper">
+    <div class="page-header">
+        <h1 class="text-center mb-2" style="color: aliceblue;">👥 Kullanici Yönetimi Sistemi</h1>
+        <br />
+        <br />
+    </div>
+
+    <div class="col-lg-7 mb-6" style="margin-left: 25%">
+        
+
+        <partial name="UserTable" model="@Model" />
+
+        <a class="btn btn-success" href=""> Kullanici Ekle </a>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/boostrap/dist/js/bootstrap.min.js"></script>
+<script src="~/js/book1-script.js"></script>

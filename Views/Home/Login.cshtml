@@ -1,0 +1,61 @@
+﻿@{
+    ViewData[index: "Title"] = "Login";
+}
+@model Student
+<link href="~/css/Login.css" rel="stylesheet" />
+<form asp-action="Login" asp-controller="Home" method="post">
+    
+    <div class="giris">
+        <h1>Giriş Yap</h1>
+        <div>
+            <h3 style="display: inline">Ogrenci No :</h3>
+            <br />
+            <input asp-for="Id" type="number" placeholder="Ogrenci No" id="username" />
+        </div>
+
+        <div>
+            <h3 style="display: inline">Şifre :</h3>
+            <br />
+            <input asp-for="Password" type="password"
+                   placeholder="Şifreniz"
+                   id="password"
+                   disabled="disabled" />
+        </div>
+        <br />
+        <a href="">Şifremi Unuttum</a>
+        <br />
+        <br />
+        <button type="submit" class="btn_giris" >Giriş Yap</button>
+
+        <p>Hesabın yokmu ? <a asp-controller="Home" asp-action="Register">Kayıt Ol</a></p>
+        <script src="~/js/girisyap.js"></script>
+    </div>
+</form>
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="errorModalLabel">⚠️ Giriş Hatası</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <h4 class="text-secondary">@TempData["ErrorMessage"]</h4>
+                <p class="text-muted mt-2">Lütfen bilgilerinizi kontrol edip tekrar deneyiniz.</p>
+            </div>
+            <div class="modal-footer justify-content-center border-0">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Anladım</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+        });
+    </script>
+}

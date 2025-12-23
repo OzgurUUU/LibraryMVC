@@ -1,0 +1,49 @@
+/* Not: Bu CSS, sadece Bootstrap sınıflarını geçersiz kılmak için eklenmiştir.
+   Arka plan resmi ve genel ortalama (body stili) önceki cevapta verdiğim gibi kalabilir. */
+
+/* 1. Form Kutusu (Card) Özelleştirmesi */
+.contact-card-custom {
+    /* Koyu kahverengi ve hafif saydam arka plan */
+    background-color: rgba(30, 15, 5, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 2. Başlık Özelleştirmesi */
+.contact-title-custom {
+    color: #f0e6c3; /* Açık krem/eskimiş kağıt rengi */
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* 3. Input ve Textarea Alanları Özelleştirmesi */
+.form-control-lg {
+    /* Bootstrap'ın varsayılan stilini değiştiriyoruz */
+    background-color: rgba(255, 255, 255, 0.95); /* Hafif opak beyaz */
+    color: #3e2723; /* Koyu kahverengi yazı */
+    border-color: #795548; /* Orta kahverengi kenarlık */
+    padding: 1rem 1.25rem; /* Daha büyük input alanı */
+}
+
+/* Input ve Textarea Odaklandığında */
+.form-control-lg:focus {
+    border-color: #f0e6c3; /* Odaklanınca açık renkli vurgu */
+    box-shadow: 0 0 0 0.25rem rgba(240, 230, 195, 0.3); /* Bootstrap odak gölgesi */
+}
+
+/* 4. Gönder Butonu Özelleştirmesi */
+.btn-custom-submit {
+    background-color: #795548; /* Orta kahverengi */
+    color: #f0e6c3; /* Açık krem/eskimiş kağıt rengi */
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom-submit:hover {
+    background-color: #5d4037; /* Daha koyu kahverengi */
+    color: #f0e6c3;
+}

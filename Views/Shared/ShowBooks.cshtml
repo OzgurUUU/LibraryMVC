@@ -1,0 +1,17 @@
+@model LibraryMVC.Models.Book
+
+<tr>
+    <td>@Model.Genre</td>
+    <td>@Model.Title</td>
+    <td>@Model.Author</td>
+    <td>@Model.Year</td>
+    <td>
+        @if (ViewContext.RouteData.Values["action"]?.ToString() == "ManageBook")
+        {
+            <a href="/Book/DeleteBook/@Model.BookId" class="btn primary btn-danger"> Delete</a>
+            <a href="/Book/UpdateBook/@Model.BookId" class="btn primary btn-warning"> Update</a>
+        }
+        
+    </td>
+
+</tr>   

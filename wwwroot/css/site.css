@@ -1,0 +1,99 @@
+﻿body {
+    background-image: url('/assets/WhatsApp Image 2025-10-17 at 10.51.22.jpeg'); /* resmin yolu */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-attachment: fixed;
+}
+
+img {
+    position: absolute;
+    width: 101%;
+    top: -10px;
+    left: -1px;
+    height: 102%;
+    z-index: -1;
+    opacity: 1;
+}
+        
+.maindiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Logo ve Buton Grubu arasını açar */
+    padding: 0 40px;
+    height: 80px; /* İstediğin uzunluk/yükseklik */
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 95%;
+    margin: 20px auto;
+}
+/* Logo stili */
+.maindiv h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+.maindiv h1 a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+/* Sağdaki buton grubunu hizalar */
+.nav-links {
+    display: flex;
+    gap: 20px; /* Butonlar arasındaki boşluk */
+    align-items: center;
+}
+
+.navButton {
+    text-decoration: none;
+    color: #BFA77A; /* rafine altın-krem tonu */
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    transition: 0.35s ease;
+    position: relative;
+    padding: 8px 4px;
+}
+
+
+    .navButton:hover {
+        color: #F4E8C1; /* daha parlak aristokrat altın */
+        text-shadow: 0 0 6px rgba(255, 232, 185, 0.4);
+    }
+
+
+    /* Alt çizgi – Altın + bordo degrade, premium dokunuş */
+    .navButton::after {
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #AA7A39, #80331E); /* altın→bordo premium line */
+        border-radius: 8px;
+        transition: 0.35s ease;
+        transform: translateX(-50%);
+        opacity: 0.8;
+    }
+
+
+    .navButton:hover::after {
+        width: 70%;
+    }
+
+
+    /* Aktif – koyu ahşap raf ortamına uygun sıcak parlama */
+    .navButton.active {
+        color: #FFEBBB;
+        font-weight: 600;
+        text-shadow: 0 0 8px rgba(255, 230, 180, 0.5);
+    }
+
+
+        .navButton.active::after {
+            width: 85%;
+        }

@@ -1,0 +1,128 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Book>
+<div class="col-lg-6 mb-4">
+    <div class="card shadow-lg border-0 form-card">
+        <div class="card-header text-white" style="background-color: #e46b00;opacity: 0.8;">
+            <h4 class="mb-0">
+                <span class="header-icon">➕</span> Yeni Kiralama İşlemi
+            </h4>
+
+        </div>
+        <div class="card-body">
+            <form method="post" id="loanForm">
+                <div class="form-step">
+                    
+                        <input type="hidden"
+                               id="studentName"
+                               name="studentName"
+                               class="form-control form-control-lg"
+                               value="@ViewBag.Student.FullName" />
+
+                    
+                </div>
+
+                <div class="form-step">
+                    
+                        <input type="hidden"
+                               id="studentNumber"
+                               name="studentNumber"
+                               class="form-control form-control-lg"
+                               placeholder="Örn: 2024001"
+                               disabled
+                               value="@ViewBag.Student.Id"/>
+
+                    
+                </div>
+
+                <div class="form-step">
+                    
+                        <input type="hidden"
+                               id="studentEmail"
+                               name="studentEmail"
+                               class="form-control form-control-lg"
+                               placeholder="Örn: ogrenci@mail.com"
+                               disabled
+                               value="@ViewBag.Student.Gmail"/>
+                    
+                </div>
+
+                <div class="form-step">
+                    <div class="step-badge">1</div>
+                    <div class="form-group">
+                        <label for="bookSelect" class="font-weight-bold">
+                            📚 Kiralanacak Kitap <span class="text-danger">*</span>
+                        </label>
+                        <select id="bookSelect"
+                                name="bookSelect"
+                                class="form-control form-control-lg"
+                                >
+                            <option value="">-- Kitap Seçiniz --</option>
+                            @foreach (var book in Model)
+                            {
+                                <option value="@book.BookId">
+                                    @book.Title - @book.Author (@book.Year)
+                                </option>
+                            }
+                        </select>
+                        <small class="form-text text-muted">Kütüphanedeki mevcut kitaplardan seçin</small>
+                    </div>
+                </div>
+
+                <div class="form-step">
+                    <div class="step-badge">2</div>
+                    <div class="form-group">
+                        <label for="loanDate" class="font-weight-bold">
+                            📅 Kiralama Tarihi <span class="text-danger">*</span>
+                        </label>
+                        <input type="date"
+                               id="loanDate"
+                               name="loanDate"
+                               class="form-control form-control-lg"
+                                />
+                        <small class="form-text text-muted">Kitabın teslim alındığı tarih</small>
+                    </div>
+                </div>
+
+                <div class="form-step">
+                    <div class="step-badge">3</div>
+                    <div class="form-group">
+                        <label for="returnDate" class="font-weight-bold">
+                            🔙 İade Tarihi <span class="text-danger">*</span>
+                        </label>
+                        <input type="date"
+                               id="returnDate"
+                               name="returnDate"
+                               class="form-control form-control-lg"
+                                />
+                        <small class="form-text text-muted">Kitabın iade edileceği tarih (max 30 gün)</small>
+                    </div>
+                </div>
+
+                <div class="form-step">
+                    <div class="step-badge">4</div>
+                    <div class="form-group">
+                        <label for="notes" class="font-weight-bold">
+                            📝 Ek Notlar
+                        </label>
+                        <textarea id="notes"
+                                  name="notes"
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Varsa özel durumlar, hasarlar veya notlar..."
+                                  ></textarea>
+                        <small class="form-text text-muted">Opsiyonel - Eklemek istediğiniz notlar</small>
+                    </div>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success btn-lg btn-block submit-btn">
+                    <span class="btn-icon">✅</span> Kiralama Kaydı Oluştur
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

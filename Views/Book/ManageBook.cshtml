@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "ManageBook";
+    var AuthorList = new List<String>();
+    foreach(var book in Model)
+    {
+        var exist = false;
+        foreach(var author in AuthorList)
+        {
+            if(book.Author == author)
+            {
+                exist = true;
+            }
+        }
+        if (!exist)
+        {
+            AuthorList.Add(book.Author);
+        }
+    }
+}
+@model List<Book>
+<div class="container mt-5 content-wrapper">
+    <div class="page-header">
+        <h1 class="text-center mb-2" style="color: aliceblue;">📚 Kitap Yönetimi Sistemi</h1>
+        <br />
+        <br />
+    </div>
+
+        <div class="col-lg-6 mb-4" style="margin-left: 25%" >
+            <div class="card shadow-lg border-0 statistics-card mb-4">
+                <div class="card-header text-white" style="background-color: #e46b00;opacity: 0.8;">
+                    <h4 class="mb-0">
+                        <span class="header-icon">📊</span> Kütüphane İstatistikleri
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="stat-box stat-books">
+                                <h3 class="stat-number">
+                                    @Model.Count
+                                </h3>
+                                <p class="stat-label">Toplam Kitap</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-box stat-authors">
+                                <h3 class="stat-number">@AuthorList.Count</h3>
+                                <p class="stat-label">Yazar</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-box stat-genres">
+                                <h3 class="stat-number">3</h3>
+                                <p class="stat-label">Tür</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <partial name="BookTable" model="@Model" />
+
+            <a class="btn btn-success" href="/Book/AddBook"> Kitap Ekle </a>
+        </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/boostrap/dist/js/bootstrap.min.js"></script>
+<script src="~/js/book1-script.js"></script>
