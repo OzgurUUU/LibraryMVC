@@ -3,7 +3,7 @@
 <tr>
     <td>@Model.Genre</td>
     <td>@Model.Title</td>
-    <td>@Model.Author</td>
+    <td>@Model.Author?.Name</td>
     <td>@Model.Year</td>
     <td>
         @if (ViewContext.RouteData.Values["action"]?.ToString() == "ManageBook")

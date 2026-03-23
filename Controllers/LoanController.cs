@@ -1,6 +1,8 @@
 ﻿using LibraryMVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using WebApplication1.Models;
 
@@ -10,6 +12,7 @@ namespace LibraryMVC.Controllers
     {
         private AppDbContext _context ;
         public List<Book> books = new List<Book>();
+        public List<Loan> loans = new List<Loan>();
         public LoanController(AppDbContext context)
         {
             _context = context;
@@ -17,28 +20,35 @@ namespace LibraryMVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            books = _context.Book.ToList();
-            return View(books);
+            loans = _context.Loan.Include(x => x.Book).ThenInclude(x => x.Author).Include(y => y.Student).ToList();
+            return View(loans);
         }
-        [Authorize] 
+
         public IActionResult LoanForStudent()
         {
-            var Userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
+            var Userid = HttpContext.Session.GetInt32("StudentId");
 
-            if (User.IsInRole("Student"))
+
+
+            if (HttpContext.Session.GetString("UserRole") == "Student")
             {
-                var books = _context.Book.ToList();
-                var student = _context.Students.Find(int.Parse(Userid));
+                var student = _context.Students.Find(Userid);
 
-                ViewBag.Message = $"Hoş geldin : {student?.FullName}";
+                if (student == null)
+                {
+                    return NotFound("Öğrenci bulunamadı.");
+                }
+
                 ViewBag.Student = student;
+
+                var books = _context.Book.Include(x => x.Author).ToList();
+
                 return View(books);
             }
-            if (User.IsInRole("Admin"))
+            if (HttpContext.Session.GetString("UserRole") == "Admin")
             {
                 var books = _context.Book.ToList();
-                var student = _context.Students.Find(int.Parse(Userid));
+                var student = _context.Students.Find(Userid);
 
                 ViewBag.Message = $"Hoş geldin : {student?.FullName}";
                 ViewBag.Student = student;
@@ -47,6 +57,17 @@ namespace LibraryMVC.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
+        [HttpPost]
+        public IActionResult LoanForStudent(Loan newLoan)
+        {
+            if (HttpContext.Session.GetString("UserRole") == "Student")
+            {
+                
+                _context.Loan.Add(newLoan);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

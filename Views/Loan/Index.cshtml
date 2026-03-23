@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "";
 }
-@model List<Book>
+@model List<Loan>
 
 
 <div class="background-overlay"></div>
@@ -13,140 +13,6 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow-lg border-0 form-card">
-                <div class="card-header text-white" style="background-color: #e46b00;opacity: 0.8;">
-                    <h4 class="mb-0">
-                        <span class="header-icon">➕</span> Yeni Kiralama İşlemi
-                    </h4>
-                    
-                </div>
-                <div class="card-body">
-                    <form method="post" id="loanForm">
-                        <div class="form-step">
-                            <div class="step-badge">1</div>
-                            <div class="form-group">
-                                <label for="studentName" class="font-weight-bold">
-                                    👤 Öğrenci Adı Soyadı <span class="text-danger">*</span>
-                                </label>
-                                <input type="text"
-                                       id="studentName"
-                                       name="studentName"
-                                       class="form-control form-control-lg"
-                                       placeholder="Örn: Ahmet Yılmaz" />
-                                <small class="form-text text-muted">Öğrencinin tam adını girin</small>
-                            </div>
-                        </div>
-
-                        <div class="form-step">
-                            <div class="step-badge">2</div>
-                            <div class="form-group">
-                                <label for="studentNumber" class="font-weight-bold">
-                                    🎓 Öğrenci Numarası <span class="text-danger">*</span>
-                                </label>
-                                <input type="text"
-                                       id="studentNumber"
-                                       name="studentNumber"
-                                       class="form-control form-control-lg"
-                                       placeholder="Örn: 2024001"
-                                       disabled />
-                                <small class="form-text text-muted">Öğrenci numarasını girin</small>
-                            </div>
-                        </div>
-
-                        <div class="form-step">
-                            <div class="step-badge">3</div>
-                            <div class="form-group">
-                                <label for="studentEmail" class="font-weight-bold">
-                                    📧 E-posta Adresi <span class="text-danger">*</span>
-                                </label>
-                                <input type="email"
-                                       id="studentEmail"
-                                       name="studentEmail"
-                                       class="form-control form-control-lg"
-                                       placeholder="Örn: ogrenci@mail.com"
-                                       disabled />
-                                <small class="form-text text-muted">Hatırlatma için e-posta</small>
-                            </div>
-                        </div>
-
-                        <div class="form-step">
-                            <div class="step-badge">4</div>
-                            <div class="form-group">
-                                <label for="bookSelect" class="font-weight-bold">
-                                    📚 Kiralanacak Kitap <span class="text-danger">*</span>
-                                </label>
-                                <select id="bookSelect"
-                                        name="bookSelect"
-                                        class="form-control form-control-lg"
-                                        disabled>
-                                    <option value="">-- Kitap Seçiniz --</option>
-                                    @foreach (var book in Model)
-                                    {
-                                        <option value="@book.BookId">
-                                        @book.Title - @book.Author (@book.Year)
-                                    </option>
-                                    }
-                                </select>
-                                <small class="form-text text-muted">Kütüphanedeki mevcut kitaplardan seçin</small>
-                            </div>
-                        </div>
-
-                        <div class="form-step">
-                            <div class="step-badge">5</div>
-                            <div class="form-group">
-                                <label for="loanDate" class="font-weight-bold">
-                                    📅 Kiralama Tarihi <span class="text-danger">*</span>
-                                </label>
-                                <input type="date"
-                                       id="loanDate"
-                                       name="loanDate"
-                                       class="form-control form-control-lg"
-                                       disabled />
-                                <small class="form-text text-muted">Kitabın teslim alındığı tarih</small>
-                            </div>
-                        </div>
-
-                        <div class="form-step">
-                            <div class="step-badge">6</div>
-                            <div class="form-group">
-                                <label for="returnDate" class="font-weight-bold">
-                                    🔙 İade Tarihi <span class="text-danger">*</span>
-                                </label>
-                                <input type="date"
-                                       id="returnDate"
-                                       name="returnDate"
-                                       class="form-control form-control-lg"
-                                       disabled />
-                                <small class="form-text text-muted">Kitabın iade edileceği tarih (max 30 gün)</small>
-                            </div>
-                        </div>
-
-                        <div class="form-step">
-                            <div class="step-badge">7</div>
-                            <div class="form-group">
-                                <label for="notes" class="font-weight-bold">
-                                    📝 Ek Notlar
-                                </label>
-                                <textarea id="notes"
-                                          name="notes"
-                                          class="form-control"
-                                          rows="3"
-                                          placeholder="Varsa özel durumlar, hasarlar veya notlar..."
-                                          disabled></textarea>
-                                <small class="form-text text-muted">Opsiyonel - Eklemek istediğiniz notlar</small>
-                            </div>
-                        </div>
-
-                        <button type="submit"
-                                class="btn btn-success btn-lg btn-block submit-btn">
-                            <span class="btn-icon">✅</span> Kiralama Kaydı Oluştur
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <div class="col-lg-6 mb-4">
             <div class="card shadow-lg border-0 statistics-card mb-4">
                 <div class="card-header text-white" style="background-color: #e46b00;opacity: 0.8;">
@@ -191,12 +57,23 @@
                                 <tr>
                                     <th>Öğrenci</th>
                                     <th>Kitap</th>
-                                    <th>İade</th>
+                                    <th>Yazar</th>
+                                    <th>İade Tarihi</th>
                                     <th>Durum</th>
                                 </tr>
                             </thead>
                             <tbody id="loanTableBody">
-                                <tr>
+                                @foreach(var loan in Model)
+                                {
+                                    <tr>
+                                        <td>@loan.Student.FullName</td>
+                                        <td>@loan.Book.Title </td>
+                                        <td>@loan.Book.Author.Name</td>
+                                        <td>@loan.ReturnDate.Day/@loan.ReturnDate.Month/@loan.ReturnDate.Year</td>
+                                        <td>@loan.IsReturned</td>
+                                    </tr>
+                                }
+                                @*                                 <tr>
                                     <td>
                                         <strong>Ahmet Yılmaz</strong>
                                         <br /><p id="a-id"><small class="text-muted">2021001</small></p>
@@ -280,13 +157,13 @@
                                     <td>
                                         <span class="badge badge-success">Aktif</span>
                                     </td>
-                                </tr>
+                                </tr> *@
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-                <partial name="BookTable" model="@Model" />
+@*                 <partial name="BookTable" model="@Model" /> *@
             
         </div>
     </div>

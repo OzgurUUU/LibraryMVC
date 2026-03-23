@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kKPINbgh+UY=",
+  "dgSpecHash": "yKG165Mq7gw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\LibraryMVC.csproj",
+  "projectFilePath": "C:\\Users\\Özgür Üçdağ\\Desktop\\code\\mvc\\LibraryMVC\\LibraryMVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Özgür Üçdağ\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Özgür Üçdağ\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

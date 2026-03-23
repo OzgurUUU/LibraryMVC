@@ -1,5 +1,6 @@
 ﻿using LibraryMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
 namespace LibraryMVC.Controllers
@@ -14,7 +15,7 @@ namespace LibraryMVC.Controllers
         }
         public IActionResult Index()
         {
-            _students = _context.Students.ToList();
+            _students = _context.Students.Include(x => x.Book).ToList();
             if(_students != null)
             {
                 return View(_students);

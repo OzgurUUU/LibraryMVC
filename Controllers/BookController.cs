@@ -9,6 +9,7 @@ using LibraryMVC.Models;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace LibraryMVC.Controllers
 {
     public class BookController : Controller
@@ -22,37 +23,43 @@ namespace LibraryMVC.Controllers
             _logger = logger;
             
         }
-        [Authorize]
+
         public IActionResult AddBook()
         {
-            if (User.IsInRole("Admin"))
+            if (HttpContext.Session.GetString("UserRole") == "Admin")
             {
+                ViewBag.Authors = new SelectList(_context.Author.ToList(), "AuthorId", "Name");
                 return View();
             }
                 return BadRequest();
         }
-        [Authorize]
+        [HttpPost]
+        public IActionResult AddBook(Book book)
+        {
+            if (HttpContext.Session.GetString("UserRole") == "Admin")
+            {
+                _context.Book.Add(book);
+                _context.SaveChanges();
+                return RedirectToAction("ManageBook", "Book");
+            }
+            return View(book);
+        }
+
         public IActionResult ManageBook()
         {
-            if (User.IsInRole("Admin"))
-            {
-                var books = _context.Book.ToList();
+            if (HttpContext.Session.GetString("UserRole") == "Admin")
+           {
+                
+                var books = _context.Book.Include(x => x.Author).ToList();
                 return View(books);
-            }
+           }
             return BadRequest();
         }
-        [HttpPost]
-        public IActionResult ManageBook(Book book)
-        {
-            var books = _context.Book.ToList();
-            _context.Book.Add(book);
-            _context.SaveChanges();
-            return RedirectToAction("ManageBook", "Book");
-        }
-        [Authorize]
+
+
         public IActionResult DeleteBook(int id)
         {
-            if (User.IsInRole("Admin"))
+            if (HttpContext.Session.GetString("UserRole") == "Admin")
             {
                 var book = _context.Book.Find(id);
                 _context.Book.Remove(book);
@@ -61,12 +68,13 @@ namespace LibraryMVC.Controllers
             }
             return BadRequest();
         }
-        [Authorize]
+
         public IActionResult UpdateBook(int id)
         {
-            if (User.IsInRole("Admin"))
+            if (HttpContext.Session.GetString("UserRole") == "Admin")
             {
-                var updatedbook = _context.Book.Find(id);
+                ViewBag.Authors = new SelectList(_context.Author.ToList(), "AuthorId", "Name");
+                var updatedbook = _context.Book.Include(x => x.Author).FirstOrDefault(x => x.BookId == id);
                 return View(updatedbook);
             }
             return BadRequest();
@@ -74,10 +82,11 @@ namespace LibraryMVC.Controllers
         [HttpPost]
         public IActionResult UpdateBook(Book book)
         {
-            var abook = _context.Book.FirstOrDefault(x => x.BookId == book.BookId);
-            abook.Title = book.Title;
-            abook.Author = book.Author;
-            abook.Year = book.Year;
+            var existingBook = _context.Book.FirstOrDefault(x => x.BookId == book.BookId);
+            existingBook.Title = book.Title;
+            existingBook.Year = book.Year;
+            existingBook.Genre = book.Genre;
+            existingBook.AuthorId = book.AuthorId;
             _context.SaveChanges();
             return RedirectToAction("ManageBook", "Book"); 
         }

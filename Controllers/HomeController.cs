@@ -21,8 +21,12 @@ namespace LibraryMVC.Controllers
 
         public IActionResult Index()
         {
-            _students = _context.Students.ToList();
-            return View();
+
+            ViewBag.OgrenciAdi = HttpContext.Session.GetString("StudentName");
+            ViewBag.GirisYapildiMi = HttpContext.Session.GetInt32("StudentId") != null;
+
+            var students = _context.Students.ToList();
+            return View(students);
         }
 
         public IActionResult Register()
@@ -30,64 +34,38 @@ namespace LibraryMVC.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Login(Student student) // async ekledik
-        {
-            // 1. Önce kullanýcýyý bul
-            var existStudent = _context.Students.FirstOrDefault(x => x.Id == student.Id); // Genelde Gmail ile aranýr
 
-            // 2. Kontrol Et: Kullanýcý yoksa veya þifre yanlýþsa direkt hata dön
+        [HttpPost]
+        public IActionResult Login(Student student)
+        {
+            var existStudent = _context.Students.FirstOrDefault(x => x.Id == student.Id); 
+
             if (existStudent == null || existStudent.Password != student.Password)
             {
-                TempData["ErrorMessage"] = "Öðrenci numarasý veya þifre hatalý!";
+                ViewBag.ErrorMessage = "Hatalý giriþ!";
                 return View(student);
             }
 
-            // 3. Baþarýlýysa: Claim'leri oluþtur
-            var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.NameIdentifier, existStudent.Id.ToString()),
-        new Claim(ClaimTypes.Email, existStudent.Gmail ?? ""),
-        new Claim(ClaimTypes.Role, existStudent.Permissions ?? "Student"), // "Admin" veya "Student"
-        new Claim("StudentId", existStudent.Id.ToString()) // ID'yi saklamak iþe yarar
-    };
 
-            var identity = new ClaimsIdentity(claims, "MyCookieAuth");
-            var principal = new ClaimsPrincipal(identity);
+            HttpContext.Session.SetInt32("StudentId", existStudent.Id);
+            HttpContext.Session.SetString("StudentName", existStudent.FullName);
 
-            // 4. KRÝTÝK ADIM: Cookie'yi tarayýcýya gönder (Oturumu aç)
-            HttpContext.SignInAsync("MyCookieAuth", principal);
+            HttpContext.Session.SetString("UserRole", existStudent.Permissions ?? "Student");
+
 
             return RedirectToAction("Index", "Home");
         }
+
         public IActionResult Logout()
         {
-            // "MyCookieAuth" isimli þemayý temizler (Cookie'yi siler)
-            HttpContext.SignOutAsync("MyCookieAuth");
 
-            // Çýkýþ yaptýktan sonra ana sayfaya yönlendir
-            return RedirectToAction("Index", "Home");
-        }
-        public IActionResult Contact()
-        {
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Contact(string Ad,int PhoneNumber, string Email, string Mesaj)
-        {
-            var UserMessage = new
-            {
-                Name = Ad,
-                Gmail = Email,
-                Number = PhoneNumber,
-                Message = Mesaj,
-            };
-            return Json(UserMessage);
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -3238,11 +3238,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\LibraryMVC.csproj",
+      "projectUniqueName": "C:\\Users\\Özgür Üçdağ\\Desktop\\code\\mvc\\LibraryMVC\\LibraryMVC.csproj",
       "projectName": "LibraryMVC",
-      "projectPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\LibraryMVC.csproj",
+      "projectPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\code\\mvc\\LibraryMVC\\LibraryMVC.csproj",
       "packagesPath": "C:\\Users\\Özgür Üçdağ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\obj\\",
+      "outputPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\code\\mvc\\LibraryMVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3313,7 +3313,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

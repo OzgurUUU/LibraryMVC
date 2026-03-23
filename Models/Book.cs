@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace LibraryMVC.Models
 {
@@ -17,8 +12,12 @@ namespace LibraryMVC.Models
         [Required(ErrorMessage = "Kitap adı boş bırakılamaz")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Yazar adı boş bırakılamaz")]
-        public string Author { get; set; }
+
+        [Required(ErrorMessage = "Yazar seçimi zorunludur")]
+        public int? AuthorId { get; set; }
+
+        [ForeignKey("AuthorId")]
+        public virtual Author? Author { get; set; }
 
         [Required(ErrorMessage = "Kitap yılı boş bırakılamaz")]
         public int Year { get; set; }
@@ -26,5 +25,4 @@ namespace LibraryMVC.Models
         [Required(ErrorMessage = "Tür alanı zorunludur")]
         public string Genre { get; set; }
     }
-
 }

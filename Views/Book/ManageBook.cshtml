@@ -6,14 +6,14 @@
         var exist = false;
         foreach(var author in AuthorList)
         {
-            if(book.Author == author)
+            if(book.Author.Name == author)
             {
                 exist = true;
             }
         }
         if (!exist)
         {
-            AuthorList.Add(book.Author);
+            AuthorList.Add(book.Author.Name);
         }
     }
 }

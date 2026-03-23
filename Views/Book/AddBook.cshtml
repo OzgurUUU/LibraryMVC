@@ -1,7 +1,7 @@
 @model Book
 
 <div class="row" style="margin-left: 33% ; margin-top:10%">
-    <div class="col-lg-6 mb-4 mt-5" >
+    <div class="col-lg-6 mb-4 mt-5">
         <div class="card shadow-lg border-0 form-card">
             <div class="card-header text-white" style="background-color: #e46b00; opacity:0.8;">
                 <h4 class="mb-0">
@@ -10,9 +10,8 @@
             </div>
 
             <div class="card-body">
-                <form asp-action="ManageBook" asp-controller="Book" method="post">
+                <form asp-action="AddBook" asp-controller="Book" method="post">
 
-                    <!-- Kitap Adı -->
                     <div class="form-group mb-4">
                         <label asp-for="Title" class="font-weight-bold">
                             📖 Kitap Adı <span class="text-danger">*</span>
@@ -21,16 +20,16 @@
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
 
-                    <!-- Yazar -->
                     <div class="form-group mb-4">
-                        <label asp-for="Author" class="font-weight-bold">
+                        <label asp-for="AuthorId" class="font-weight-bold">
                             ✍️ Yazar <span class="text-danger">*</span>
                         </label>
-                        <input asp-for="Author" class="form-control form-control-lg" placeholder="Örn: Orhan Pamuk" />
-                        <span asp-validation-for="Author" class="text-danger"></span>
+                        <select asp-for="AuthorId" class="form-control form-control-lg" asp-items="ViewBag.Authors">
+                            <option value="">-- Yazar Seçiniz --</option>
+                        </select>
+                        <span asp-validation-for="AuthorId" class="text-danger"></span>
                     </div>
 
-                    <!-- Yayın Yılı -->
                     <div class="form-group mb-4">
                         <label asp-for="Year" class="font-weight-bold">
                             📅 Yayın Yılı <span class="text-danger">*</span>
@@ -39,7 +38,7 @@
                         <span asp-validation-for="Year" class="text-danger"></span>
                     </div>
 
-                    <!-- Tür -->
+                    <label class="font-weight-bold">📚 Tür</label>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="Genre" value="Klasik" />
                         <label class="form-check-label">📜 Klasik</label>
@@ -54,7 +53,10 @@
                         <input class="form-check-input" type="checkbox" name="Genre" value="Hikaye" />
                         <label class="form-check-label">📘 Hikaye</label>
                     </div>
-                    <button type="submit" class="btn btn-success btn-lg btn-block">
+
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+
+                    <button type="submit" class="btn btn-success btn-lg btn-block mt-4">
                         ✅ Kitabı Kaydet
                     </button>
 

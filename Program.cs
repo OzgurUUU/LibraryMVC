@@ -10,15 +10,9 @@ namespace WebApplication1
             var builder = WebApplication.CreateBuilder(args);
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
-            // Add services to the container.
-            builder.Services.AddAuthentication("MyCookieAuth")
-    .AddCookie("MyCookieAuth", options => {
-        options.LoginPath = "/Home/Login"; // Yetkisiz giriþte yönlendirilecek sayfa
-        options.LogoutPath = "/Home/Logout"; // Logout yolu
-        options.AccessDeniedPath = "/Home/AccessDenied"; // Yetki (Rol) yetersizse gidilecek sayfa
-    });
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddHttpContextAccessor(); // Layout'ta Session okumak için þart!
+            builder.Services.AddSession();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -33,8 +27,7 @@ namespace WebApplication1
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",

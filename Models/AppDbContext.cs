@@ -10,6 +10,8 @@ namespace WebApplication1.Models
 
         }
         public DbSet<Book> Book { get; set; } 
+        public DbSet<Author> Author { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Loan> Loan { get; set; }
     }
 }
