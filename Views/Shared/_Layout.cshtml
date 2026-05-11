@@ -1,207 +1,68 @@
-﻿<!DOCTYPE html>
-<html lang="tr">
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    string userRole = HttpContextAccessor.HttpContext.Session.GetString("UserRole");
+    var userId = HttpContextAccessor.HttpContext.Session.GetInt32("StudentId");
+}
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Kütüphane Otomasyonu</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        /* Koyu Kütüphane Teması Özel CSS */
-        :root {
-            --bg-color: #1a1a24; /* Koyu lacivert/gri arkaplan */
-            --panel-bg: #262635; /* Kartlar ve paneller için */
-            --text-color: #e0e0e0; /* Açık gri metin */
-            --accent-gold: #cba153; /* Eski kitap sayfası / altın sarısı vurgu */
-            --accent-gold-hover: #b38b42;
-            --border-color: #3b3b4f;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Navbar Özelleştirmesi */
-        .navbar {
-            background-color: #12121a !important;
-            border-bottom: 2px solid var(--accent-gold);
-        }
-
-        .navbar-brand {
-            color: var(--accent-gold) !important;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .nav-link {
-            color: #b0b0c0 !important;
-            transition: color 0.3s ease;
-        }
-
-            .nav-link:hover, .nav-link.active {
-                color: var(--accent-gold) !important;
-            }
-
-        /* Dropdown Koyu Tema */
-        .dropdown-menu {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-        }
-
-        .dropdown-item {
-            color: var(--text-color);
-        }
-
-            .dropdown-item:hover {
-                background-color: var(--bg-color);
-                color: var(--accent-gold);
-            }
-
-        /* Genel Kartlar */
-        .card {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            color: var(--text-color);
-        }
-
-        .card-header {
-            background-color: #1f1f2e;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--accent-gold);
-            font-weight: bold;
-        }
-
-        /* Butonlar */
-        .btn-primary {
-            background-color: var(--accent-gold);
-            border-color: var(--accent-gold);
-            color: #12121a;
-            font-weight: bold;
-        }
-
-            .btn-primary:hover {
-                background-color: var(--accent-gold-hover);
-                border-color: var(--accent-gold-hover);
-                color: #12121a;
-            }
-
-        .btn-outline-gold {
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-        }
-
-            .btn-outline-gold:hover {
-                background-color: var(--accent-gold);
-                color: #12121a;
-            }
-
-        /* Tablolar */
-        .table {
-            color: var(--text-color);
-        }
-
-        .table-dark {
-            background-color: var(--panel-bg);
-        }
-
-            .table-dark th {
-                color: var(--accent-gold);
-                border-bottom: 2px solid var(--border-color);
-            }
-
-            .table-dark td, .table-dark th {
-                border-color: var(--border-color);
-                background-color: transparent;
-            }
-
-        .table-hover tbody tr:hover td {
-            background-color: rgba(203, 161, 83, 0.1) !important; /* Hafif sarı hover */
-            color: #fff;
-        }
-
-        /* Form Elemanları */
-        .form-control, .form-select {
-            background-color: #12121a;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-        }
-
-            .form-control:focus, .form-select:focus {
-                background-color: #1a1a24;
-                color: #fff;
-                border-color: var(--accent-gold);
-                box-shadow: 0 0 0 0.2rem rgba(203, 161, 83, 0.25);
-            }
-
-        .form-label {
-            color: #b0b0c0;
-        }
-    </style>
+    <title>@ViewData["Title"] - LibraryMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LibraryMVC.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark box-shadow mb-4">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="fa-solid fa-book-open-reader me-2"></i>KütüphaneMS
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-toggle="target" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house me-1"></i> Panel</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="fa-solid fa-book me-1"></i> Kitap Yönetimi
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="Books" asp-action="Index">Kitaplar</a></li>
-                                <li><a class="dropdown-item" asp-controller="BookAuthors" asp-action="Index">Yazarlar</a></li>
-                                <li><a class="dropdown-item" asp-controller="BookTypes" asp-action="Index">Türler/Kategoriler</a></li>
-                                <li><a class="dropdown-item" asp-controller="BookPublishers" asp-action="Index">Yayınevleri</a></li>
-                                <li><a class="dropdown-item" asp-controller="UserTypes" asp-action="Index">Limit ve Rol Yönetimi</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Users" asp-action="Index"><i class="fa-solid fa-users me-1"></i> Üyeler</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Borrows" asp-action="Index"><i class="fa-solid fa-hand-holding-hand me-1"></i> Ödünç & İade</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Reservations" asp-action="Index"><i class="fa-solid fa-bookmark me-1"></i> Rezervasyonlar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Penalties" asp-action="Index"><i class="fa-solid fa-scale-balanced me-1"></i> Cezalar</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-danger" asp-controller="Home" asp-action="Logout">
-                                <i class="fa-solid fa-arrow-right-from-bracket me-1"></i> Çıkış Yap
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <div class="maindiv">
+        <h1><a asp-controller="Home" asp-action="Index">LIBRARY</a></h1>
+        <div class="nav-links">
+            @if (userRole == "Admin")
+            {
+                <a class="navButton" asp-controller="Book" asp-action="ManageBook">Kitap Yönetimi</a>
 
-    <div class="container pb-5">
-        <main role="main">
-            @RenderBody()
-        </main>
+                <a class="navButton" asp-controller="User" asp-action="Index">Kullanıcı Yönetimi</a>
+
+                <a class="navButton" asp-controller="Loan" asp-action="Index">Kiralama Yönetimi</a>
+            }
+            @if (userRole == "Student")
+            {
+                <a class="navButton" asp-controller="Loan" asp-action="LoanForStudent">Kitap Kirala</a>
+            }
+            <a class="navButton" asp-controller="Home" asp-action="Contact">İletişim</a>
+            @if (userId != null) 
+            {
+                <a class="navButton" asp-controller="Home" asp-action="Logout">Çıkış Yap</a>
+            }
+
+            else
+            {
+                <a class="navButton" asp-controller="Home" asp-action="Login">Giriş Yap</a>
+            }
+
+        </div>
+
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+
+            @RenderBody()
+
+        </main>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

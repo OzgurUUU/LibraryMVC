@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+@model List<Loan>
+
+
+<div class="background-overlay"></div>
+
+<div class="container mt-5 content-wrapper">
+    <div class="page-header">
+        <h1 class="text-center mb-2" style="color: aliceblue;">📖 Kitap Kiralama Sistemi</h1>
+        <br /><br /><br />
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-lg border-0 statistics-card mb-4">
+                <div class="card-header text-white" style="background-color: #e46b00;opacity: 0.8;">
+                    <h4 class="mb-0">
+                        <span class="header-icon">📊</span> İstatistikler
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="stat-box stat-active">
+                                <h3 class="stat-number">3</h3>
+                                <p class="stat-label">Aktif</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-box stat-warning">
+                                <h3 class="stat-number">1</h3>
+                                <p class="stat-label">Yakında</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-box stat-danger">
+                                <h3 class="stat-number">1</h3>
+                                <p class="stat-label">Gecikmiş</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-lg border-0 mb-5 table-card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <span class="header-icon">📋</span> Aktif Kiralamalar
+                    </h4>
+                </div>
+                <div class="card-body p-0 ">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Öğrenci</th>
+                                    <th>Kitap</th>
+                                    <th>Yazar</th>
+                                    <th>İade Tarihi</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody id="loanTableBody">
+                                @foreach(var loan in Model)
+                                {
+                                    <tr>
+                                        <td>@loan.Student.FullName</td>
+                                        <td>@loan.Book.Title </td>
+                                        <td>@loan.Book.Author.Name</td>
+                                        <td>@loan.ReturnDate.Day/@loan.ReturnDate.Month/@loan.ReturnDate.Year</td>
+                                        <td>@loan.IsReturned</td>
+                                    </tr>
+                                }
+                                @*                                 <tr>
+                                    <td>
+                                        <strong>Ahmet Yılmaz</strong>
+                                        <br /><p id="a-id"><small class="text-muted">2021001</small></p>
+                                    </td>
+                                    <td>
+                                        <small>Masumiyet</small>
+                                        <br /><small class="text-muted">O. Pamuk</small>
+                                    </td>
+                                    <td>
+                                        <small>15.11.2024</small>
+                                        <br /><small class="text-success">5 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Aktif</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Ayşe Demir</strong>
+                                        <br /><small class="text-muted">2021002</small>
+                                    </td>
+                                    <td>
+                                        <small>Suç ve Ceza</small>
+                                        <br /><small class="text-muted">Dostoyevski</small>
+                                    </td>
+                                    <td>
+                                        <small>12.11.2024</small>
+                                        <br /><small class="text-warning">2 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-warning">Yakında</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Mehmet Kaya</strong>
+                                        <br /><small class="text-muted">2021003</small>
+                                    </td>
+                                    <td>
+                                        <small>Simyacı</small>
+                                        <br /><small class="text-muted">P. Coelho</small>
+                                    </td>
+                                    <td>
+                                        <small>05.11.2024</small>
+                                        <br /><small class="text-danger">5 gün geçti</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-danger">Gecikmiş</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Zeynep Ak</strong>
+                                        <br /><small class="text-muted">2021004</small>
+                                    </td>
+                                    <td>
+                                        <small>Sefiller</small>
+                                        <br /><small class="text-muted">V. Hugo</small>
+                                    </td>
+                                    <td>
+                                        <small>20.11.2024</small>
+                                        <br /><small class="text-success">10 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Aktif</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Ali Yıldız</strong>
+                                        <br /><small class="text-muted">2021005</small>
+                                    </td>
+                                    <td>
+                                        <small>Beyaz Zambaklar</small>
+                                        <br /><small class="text-muted">G. Petrov</small>
+                                    </td>
+                                    <td>
+                                        <small>18.11.2024</small>
+                                        <br /><small class="text-success">8 gün kaldı</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">Aktif</span>
+                                    </td>
+                                </tr> *@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+@*                 <partial name="BookTable" model="@Model" /> *@
+            
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/js/Loan.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
