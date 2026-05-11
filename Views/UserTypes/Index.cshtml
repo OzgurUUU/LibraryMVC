@@ -1,0 +1,134 @@
+﻿@model IEnumerable<LibraryMVC.Models.UserType>
+@{
+    ViewData["Title"] = "Üye Rolleri ve Limitler";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 style="color: var(--accent-gold);"><i class="fa-solid fa-users-gear me-2"></i>Limit ve Rol Yönetimi</h2>
+        <p class="text-secondary mb-0">Üye tiplerine göre aynı anda alınabilecek kitap sayısı ve süre limitlerini buradan ayarlayın.</p>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Rol / Üye Tipi</th>
+                        <th>Maks. Kitap Limiti</th>
+                        <th>Ödünç Süresi (Gün)</th>
+                        <th>Uzatma Hakkı</th>
+                        <th class="text-end pe-4">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    @if (item.TypeName == "Admin" || item.TypeName == "Yönetici")
+                                    {
+                                        <span class="badge bg-danger fs-6"><i class="fa-solid fa-shield-halved me-1"></i> @item.TypeName</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge border border-secondary text-light fs-6" style="background-color: #1a1a24;">@item.TypeName</span>
+                                    }
+                                </td>
+                                <td><span class="badge bg-secondary">@item.BookLimit Kitap</span></td>
+                                <td><span class="badge bg-info text-dark">@item.BorrowPeriod Gün</span></td>
+                                <td><span class="badge bg-warning text-dark">@item.ExtensionLimit Kez</span></td>
+                                <td class="text-end pe-4">
+                                    <button type="button" class="btn btn-sm btn-outline-light" title="Limitleri Düzenle"
+                                            data-bs-toggle="modal" data-bs-target="#editLimitModal"
+                                            data-id="@item.TypeId"
+                                            data-name="@item.TypeName"
+                                            data-limit="@item.BookLimit"
+                                            data-period="@item.BorrowPeriod"
+                                            data-ext="@item.ExtensionLimit">
+                                        <i class="fa-solid fa-sliders"></i> Ayarları Değiştir
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editLimitModal" tabindex="-1" aria-labelledby="editLimitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: var(--panel-bg); border: 1px solid var(--border-color);">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="editLimitModalLabel" style="color: var(--accent-gold);">
+                    <i class="fa-solid fa-pen-to-square me-2"></i>Limitleri Düzenle
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form asp-action="Edit" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="modalTypeId" name="TypeId" />
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary">Rol / Üye Tipi Adı</label>
+                        <input type="text" class="form-control" id="modalTypeName" name="TypeName" required />
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label text-secondary">Kitap Limiti</label>
+                            <input type="number" class="form-control" id="modalBookLimit" name="BookLimit" min="1" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-secondary">Süre (Gün)</label>
+                            <input type="number" class="form-control" id="modalBorrowPeriod" name="BorrowPeriod" min="1" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-secondary">Uzatma Hakkı</label>
+                            <input type="number" class="form-control" id="modalExtLimit" name="ExtensionLimit" min="0" required />
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning mt-4 mb-0 py-2" style="background-color: rgba(203, 161, 83, 0.1); border: 1px solid var(--accent-gold); color: var(--accent-gold); font-size: 0.85rem;">
+                        <i class="fa-solid fa-circle-info me-1"></i> Yapılan değişiklikler, bu role sahip üyelerin sonraki ödünç alma işlemlerinde geçerli olacaktır.
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary px-4"><i class="fa-solid fa-floppy-disk me-2"></i>Değişiklikleri Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Sayfa yüklendiğinde Modal içindeki inputları tıklanan butondaki verilere göre dolduran JS kodu
+        var editModal = document.getElementById('editLimitModal')
+        editModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+
+            // Butondaki data-* özelliklerini çek
+            var id = button.getAttribute('data-id');
+            var name = button.getAttribute('data-name');
+            var limit = button.getAttribute('data-limit');
+            var period = button.getAttribute('data-period');
+            var ext = button.getAttribute('data-ext');
+
+            // Modal içindeki inputlara yazdır
+            editModal.querySelector('#modalTypeId').value = id;
+            editModal.querySelector('#modalTypeName').value = name;
+            editModal.querySelector('#modalBookLimit').value = limit;
+            editModal.querySelector('#modalBorrowPeriod').value = period;
+            editModal.querySelector('#modalExtLimit').value = ext;
+        })
+    </script>
+}

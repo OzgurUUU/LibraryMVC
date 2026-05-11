@@ -1,0 +1,92 @@
+﻿@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Üye Yönetimi";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 style="color: var(--accent-gold);"><i class="fa-solid fa-users me-2"></i>Üye Yönetimi</h2>
+        <p class="text-secondary mb-0">Sistemde kayıtlı olan tüm üyeleri ve rollerini buradan yönetebilirsiniz.</p>
+    </div>
+    <div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm">
+            <i class="fa-solid fa-user-plus me-1"></i> Yeni Üye Ekle
+        </a>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th class="ps-4">TC Kimlik / ID</th>
+                        <th>Ad Soyad</th>
+                        <th>İletişim Bilgileri</th>
+                        <th>Üye Rolü</th>
+                        <th class="text-end pe-4">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 text-secondary"><i class="fa-solid fa-id-card me-2"></i>@item.UserTC</td>
+                                <td class="fw-bold" style="color: #fff;">@item.UserName @item.UserSurname</td>
+                                <td>
+                                    <div class="small">
+                                        @if (!string.IsNullOrEmpty(item.UserMail))
+                                        {
+                                            <div><i class="fa-solid fa-envelope text-secondary me-1"></i> @item.UserMail</div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(item.UserTel))
+                                        {
+                                            <div><i class="fa-solid fa-phone text-secondary me-1"></i> @item.UserTel</div>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (item.TypeName == "Admin" || item.TypeName == "Yönetici")
+                                    {
+                                        <span class="badge bg-danger"><i class="fa-solid fa-shield-halved me-1"></i> @item.TypeName</span>
+                                    }
+                                    else if (item.TypeName == "Öğrenci")
+                                    {
+                                        <span class="badge bg-primary"><i class="fa-solid fa-graduation-cap me-1"></i> @item.TypeName</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">@item.TypeName</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Details" asp-route-id="@item.UserTC" class="btn btn-sm btn-outline-info me-1" title="Detaylar">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.UserTC" class="btn btn-sm btn-outline-light me-1" title="Düzenle">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.UserTC" class="btn btn-sm btn-outline-danger" title="Sil">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-secondary">
+                                <i class="fa-solid fa-users-slash fa-2x mb-2 d-block"></i>
+                                Sistemde henüz kayıtlı üye bulunmuyor.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

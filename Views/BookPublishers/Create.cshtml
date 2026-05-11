@@ -1,0 +1,31 @@
+﻿@model LibraryMVC.Models.BookPublisher
+@{
+    ViewData["Title"] = "Yeni Yayınevi Ekle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-0 mt-3">
+            <div class="card-header py-3">
+                <h5 class="mb-0"><i class="fa-solid fa-building-flag me-2"></i>Yeni Yayınevi Kaydı</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="PublisherName" class="form-label">Yayınevi Adı</label>
+                        <input asp-for="PublisherName" class="form-control" required placeholder="Yayınevi tam unvanı..." />
+                    </div>
+
+                    <hr class="my-4" style="border-color: var(--border-color);" />
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-light"><i class="fa-solid fa-arrow-left me-2"></i>Listeye Dön</a>
+                        <button type="submit" class="btn btn-primary px-4"><i class="fa-solid fa-floppy-disk me-2"></i>Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

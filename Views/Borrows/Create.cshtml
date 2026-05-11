@@ -1,0 +1,49 @@
+﻿@model LibraryMVC.Models.Borrow
+@{
+    ViewData["Title"] = "Kitap Ödünç Ver";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 mt-3">
+            <div class="card-header py-3">
+                <h5 class="mb-0"><i class="fa-solid fa-book-bookmark me-2"></i>Yeni Ödünç İşlemi</h5>
+            </div>
+            <div class="card-body p-4">
+
+                <div class="alert alert-info mb-4" style="background-color: rgba(74, 144, 226, 0.1); border-color: #4a90e2; color: #9bc5f5;">
+                    <i class="fa-solid fa-circle-info me-2"></i> Ödünç verme ve son teslim tarihleri, seçilen üyenin <strong>Rol/Limit ayarlarına</strong> göre sistem tarafından otomatik hesaplanacaktır.
+                </div>
+
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row g-4">
+                        <div class="col-md-12">
+                            <label asp-for="UserTC" class="form-label">Üye Seçimi</label>
+                            <select asp-for="UserTC" class="form-select form-select-lg" asp-items="ViewBag.userTC" required>
+                                <option value="">İşlem yapılacak üyeyi seçiniz...</option>
+                            </select>
+                            <span asp-validation-for="UserTC" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="BookISBN" class="form-label">Verilecek Kitap</label>
+                            <select asp-for="BookISBN" class="form-select form-select-lg" asp-items="ViewBag.bookISBN" required>
+                                <option value="">Ödünç verilecek kitabı seçiniz...</option>
+                            </select>
+                            <span asp-validation-for="BookISBN" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" style="border-color: var(--border-color);" />
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-light"><i class="fa-solid fa-arrow-left me-2"></i>Vazgeç</a>
+                        <button type="submit" class="btn btn-primary px-5"><i class="fa-solid fa-hand-holding-hand me-2"></i>Ödünç Ver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

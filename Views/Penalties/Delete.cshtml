@@ -1,0 +1,51 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Ceza Tahsil Et";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-success mt-3" style="background-color: var(--panel-bg);">
+            <div class="card-header bg-success text-white py-3">
+                <h5 class="mb-0"><i class="fa-solid fa-cash-register me-2"></i>Ceza Tahsilat Onayı</h5>
+            </div>
+            <div class="card-body p-4 text-center">
+
+                <p class="lead mb-4">Üyenin ceza borcunu ödediğini onaylıyor musunuz?</p>
+
+                <div class="p-3 mb-4 rounded text-start" style="background-color: #12121a; border: 1px solid var(--border-color);">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <small class="text-secondary d-block">Borçlu Üye</small>
+                            <h4 style="color: #fff; margin-bottom: 2px;">@Model.UserFullName</h4>
+                            <span class="text-secondary small">TC: @Model.UserTC</span>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-secondary d-block">Ceza Tutarı</small>
+                            <h3 class="text-danger mb-0">₺ @Model.PenaltyAmount.ToString("0.00")</h3>
+                        </div>
+                    </div>
+
+                    <hr style="border-color: var(--border-color);" />
+
+                    <div>
+                        <small class="text-secondary d-block">Geciken Kitap</small>
+                        <h6 style="color: var(--accent-gold); margin-bottom: 0;">@Model.BookName <span class="text-secondary fw-normal small">(Kayıt: #@Model.BorrowId)</span></h6>
+                    </div>
+                </div>
+
+                <div class="alert alert-success text-start" style="background-color: rgba(25, 135, 84, 0.1); border: 1px solid #198754; color: #75b798;">
+                    <i class="fa-solid fa-info-circle me-2"></i> Onay verdiğinizde bu ceza sistemden silinerek <strong>geçmiş ceza arşivine (PenaltyLog)</strong> taşınacaktır.
+                </div>
+
+                <form asp-action="Delete" method="post" class="mt-4">
+                    <input type="hidden" name="id" value="@Model.PenaltyId" />
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-light"><i class="fa-solid fa-xmark me-2"></i>İptal Et</a>
+                        <button type="submit" class="btn btn-success px-4"><i class="fa-solid fa-check-double me-2"></i>Ödendi Olarak İşaretle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,14 +1,122 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Gösterge Paneli";
 }
 
-<link href="~/css/Index.css" rel="stylesheet" />
-
-<div class="search">
-    <h1 class="h1search">LIBRARY</h1>
-    <p>A world of knowledge at your fingertips</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <input type="text" placeholder="Search" />
-        <script src="giris_yap.js"></script>
+        <h2 style="color: var(--accent-gold);"><i class="fa-solid fa-chart-line me-2"></i>Sistem Özeti</h2>
+        <p class="text-secondary mb-0">Kütüphane Yönetim Sistemi'ne hoş geldiniz.</p>
+    </div>
+    <div>
+        <a asp-controller="Home" asp-action="DailyDuty" class="btn btn-outline-gold shadow-sm">
+            <i class="fa-solid fa-calendar-check me-2"></i>Günlük Ceza Kontrolünü Başlat
+        </a>
+    </div>
+</div>
+
+@if (TempData["DutyMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="background-color: #1a3a2a; border-color: #2a5a3a; color: #8fdfaf;">
+        <i class="fa-solid fa-circle-check me-2"></i> @TempData["DutyMessage"]
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 border-0" style="background: linear-gradient(145deg, #262635, #1f1f2e);">
+            <div class="card-body d-flex align-items-center">
+                <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: rgba(203, 161, 83, 0.1);">
+                    <i class="fa-solid fa-book fa-2x" style="color: var(--accent-gold);"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary mb-1">Toplam Kitap</h6>
+                    <h3 class="mb-0 text-white">@ViewBag.TotalBooks</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 border-0" style="background: linear-gradient(145deg, #262635, #1f1f2e);">
+            <div class="card-body d-flex align-items-center">
+                <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: rgba(74, 144, 226, 0.1);">
+                    <i class="fa-solid fa-users fa-2x" style="color: #4a90e2;"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary mb-1">Kayıtlı Üye</h6>
+                    <h3 class="mb-0 text-white">@ViewBag.TotalUsers</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 border-0" style="background: linear-gradient(145deg, #262635, #1f1f2e);">
+            <div class="card-body d-flex align-items-center">
+                <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: rgba(226, 113, 74, 0.1);">
+                    <i class="fa-solid fa-hand-holding-hand fa-2x" style="color: #e2714a;"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary mb-1">Aktif Ödünç</h6>
+                    <h3 class="mb-0 text-white">@ViewBag.TotalBorrows</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 border-0" style="background: linear-gradient(145deg, #262635, #1f1f2e);">
+            <div class="card-body d-flex align-items-center">
+                <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: rgba(155, 89, 182, 0.1);">
+                    <i class="fa-solid fa-bookmark fa-2x" style="color: #9b59b6;"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary mb-1">Bekleyen Rezervasyon</h6>
+                    <h3 class="mb-0 text-white">@ViewBag.TotalReservations</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 border-0" style="background: linear-gradient(145deg, #262635, #1f1f2e);">
+            <div class="card-body d-flex align-items-center">
+                <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1);">
+                    <i class="fa-solid fa-feather-pointed fa-2x" style="color: #2ecc71;"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary mb-1">Kayıtlı Yazar</h6>
+                    <h3 class="mb-0 text-white">@ViewBag.TotalAuthors</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 border-0" style="background: linear-gradient(145deg, #262635, #1f1f2e);">
+            <div class="card-body d-flex align-items-center">
+                <div class="rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; background-color: rgba(241, 196, 15, 0.1);">
+                    <i class="fa-solid fa-building fa-2x" style="color: #f1c40f;"></i>
+                </div>
+                <div class="ms-3">
+                    <h6 class="text-secondary mb-1">Yayınevi</h6>
+                    <h3 class="mb-0 text-white">@ViewBag.TotalPublishers</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-2 border-0">
+    <div class="card-header">
+        <i class="fa-solid fa-bolt me-2"></i>Hızlı İşlemler
+    </div>
+    <div class="card-body">
+        <div class="d-flex flex-wrap gap-3">
+            <a asp-controller="Borrows" asp-action="Create" class="btn btn-outline-light"><i class="fa-solid fa-plus me-1"></i> Yeni Ödünç Ver</a>
+            <a asp-controller="Books" asp-action="Create" class="btn btn-outline-light"><i class="fa-solid fa-book-medical me-1"></i> Yeni Kitap Ekle</a>
+            <a asp-controller="Users" asp-action="Create" class="btn btn-outline-light"><i class="fa-solid fa-user-plus me-1"></i> Yeni Üye Ekle</a>
+        </div>
     </div>
 </div>

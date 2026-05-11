@@ -1,99 +1,167 @@
-using LibraryMVC.Models;
-using Microsoft.AspNetCore.Authentication;
+ï»¿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Security.Claims;
-using WebApplication1.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+//Tamam
 
 namespace LibraryMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private List<Student> _students = new List<Student>();
-        private AppDbContext _context;
-        private readonly ILogger<HomeController> _logger;
+        private readonly string _connectionString;
 
-        public HomeController(ILogger<HomeController> logger,AppDbContext context)
+        // VeritabanÄ± baÄŸlantÄ± dizesini appsettings.json'dan Ã§ekmek iÃ§in IConfiguration kullanÄ±yoruz (Dependency Injection)
+        public HomeController(IConfiguration configuration)
         {
-            _logger = logger;
-            _context = context;
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+                              ?? "Server=localhost;Database=LibraryDB;Trusted_Connection=True;TrustServerCertificate=True;";
         }
 
         public IActionResult Index()
         {
-            _students = _context.Students.ToList();
+            // Session kontrolÃ¼ (ASP.NET Core yapÄ±sÄ±)
+            if (HttpContext.Session.GetString("admin") != "admin")
+                return RedirectToAction("Login", "Home");
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                // TÃ¼m istatistikleri tek bir sorguda alarak veritabanÄ± trafiÄŸini ve performansÄ± optimize ettik
+                string sql = @"
+                    SELECT 
+                        (SELECT COUNT(*) FROM [Book]) AS TotalBooks,
+                        (SELECT COUNT(*) FROM [BookAuthor]) AS TotalAuthors,
+                        (SELECT COUNT(*) FROM [User]) AS TotalUsers,
+                        (SELECT COUNT(*) FROM [BookPublisher]) AS TotalPublishers,
+                        (SELECT COUNT(*) FROM [Borrow]) AS TotalBorrows,
+                        (SELECT COUNT(*) FROM [Reservation]) AS TotalReservations
+                ";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ViewBag.TotalBooks = reader["TotalBooks"];
+                            ViewBag.TotalAuthors = reader["TotalAuthors"];
+                            ViewBag.TotalUsers = reader["TotalUsers"];
+                            ViewBag.TotalPublishers = reader["TotalPublishers"];
+                            ViewBag.TotalBorrows = reader["TotalBorrows"];
+                            ViewBag.TotalReservations = reader["TotalReservations"];
+                        }
+                    }
+                }
+            }
+
             return View();
         }
 
-        public IActionResult Register()
+        public IActionResult DailyDuty()
         {
-            return View();
+            if (HttpContext.Session.GetString("admin") != "admin")
+                return RedirectToAction("Login", "Home");
+
+            DateTime today = DateTime.Today;
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                // 1. Teslim tarihi geÃ§miÅŸ olan Ã¶dÃ¼nÃ§ almalarÄ± getir
+                string selectBorrowsSql = "SELECT borrowId, userTC, borrowEndDate FROM [Borrow] WHERE borrowEndDate < @today";
+                List<dynamic> overdueBorrows = new List<dynamic>();
+
+                using (SqlCommand cmd = new SqlCommand(selectBorrowsSql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@today", today);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            overdueBorrows.Add(new
+                            {
+                                BorrowId = Convert.ToInt32(reader["borrowId"]),
+                                UserTC = reader["userTC"].ToString(),
+                                BorrowEndDate = Convert.ToDateTime(reader["borrowEndDate"])
+                            });
+                        }
+                    }
+                }
+
+                // 2. GecikmiÅŸ olanlar iÃ§in ceza iÅŸlemlerini uygula
+                foreach (var borrow in overdueBorrows)
+                {
+                    int daysOverdue = (today - borrow.BorrowEndDate).Days;
+
+                    // Bu Ã¶dÃ¼nÃ§ alma iÃ§in halihazÄ±rda bir ceza var mÄ± kontrol et
+                    string checkPenaltySql = "SELECT COUNT(*) FROM [Penalty] WHERE borrowId = @borrowId";
+                    bool penaltyExists = false;
+
+                    using (SqlCommand checkCmd = new SqlCommand(checkPenaltySql, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@borrowId", borrow.BorrowId);
+                        penaltyExists = (int)checkCmd.ExecuteScalar() > 0;
+                    }
+
+                    if (!penaltyExists)
+                    {
+                        // Ceza yoksa yeni ceza kaydÄ± oluÅŸtur (ER diyagramÄ±ndaki sÃ¼tunlara gÃ¶re)
+                        string insertSql = "INSERT INTO [Penalty] (userTC, borrowId, penaltyAmount) VALUES (@userTC, @borrowId, @penaltyAmount)";
+                        using (SqlCommand insertCmd = new SqlCommand(insertSql, conn))
+                        {
+                            insertCmd.Parameters.AddWithValue("@userTC", borrow.UserTC);
+                            insertCmd.Parameters.AddWithValue("@borrowId", borrow.BorrowId);
+                            insertCmd.Parameters.AddWithValue("@penaltyAmount", (decimal)daysOverdue); // GÃ¼n baÅŸÄ± ceza bedeli eklenecekse burasÄ± Ã§arpÄ±labilir
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        // Ceza zaten varsa miktarÄ± gÃ¼ncelle
+                        string updateSql = "UPDATE [Penalty] SET penaltyAmount = @penaltyAmount WHERE borrowId = @borrowId";
+                        using (SqlCommand updateCmd = new SqlCommand(updateSql, conn))
+                        {
+                            updateCmd.Parameters.AddWithValue("@penaltyAmount", (decimal)daysOverdue);
+                            updateCmd.Parameters.AddWithValue("@borrowId", borrow.BorrowId);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+
+            TempData["DutyMessage"] = "GÃ¼nlÃ¼k kontroller tamamlandÄ±. Cezalar gÃ¼ncellendi.";
+            return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Login(Student student) // async ekledik
-        {
-            // 1. Önce kullanýcýyý bul
-            var existStudent = _context.Students.FirstOrDefault(x => x.Id == student.Id); // Genelde Gmail ile aranýr
 
-            // 2. Kontrol Et: Kullanýcý yoksa veya þifre yanlýþsa direkt hata dön
-            if (existStudent == null || existStudent.Password != student.Password)
+        [HttpPost]
+        public IActionResult Login(string username, string password) // FormCollection yerine doÄŸrudan parametre eÅŸleme kullanÄ±yoruz
+        {
+            if (username == "admin" && password == "admin")
             {
-                TempData["ErrorMessage"] = "Öðrenci numarasý veya þifre hatalý!";
-                return View(student);
+                HttpContext.Session.SetString("admin", "admin");
+                return RedirectToAction("Index", "Home");
             }
 
-            // 3. Baþarýlýysa: Claim'leri oluþtur
-            var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.NameIdentifier, existStudent.Id.ToString()),
-        new Claim(ClaimTypes.Email, existStudent.Gmail ?? ""),
-        new Claim(ClaimTypes.Role, existStudent.Permissions ?? "Student"), // "Admin" veya "Student"
-        new Claim("StudentId", existStudent.Id.ToString()) // ID'yi saklamak iþe yarar
-    };
-
-            var identity = new ClaimsIdentity(claims, "MyCookieAuth");
-            var principal = new ClaimsPrincipal(identity);
-
-            // 4. KRÝTÝK ADIM: Cookie'yi tarayýcýya gönder (Oturumu aç)
-            HttpContext.SignInAsync("MyCookieAuth", principal);
-
-            return RedirectToAction("Index", "Home");
-        }
-        public IActionResult Logout()
-        {
-            // "MyCookieAuth" isimli þemayý temizler (Cookie'yi siler)
-            HttpContext.SignOutAsync("MyCookieAuth");
-
-            // Çýkýþ yaptýktan sonra ana sayfaya yönlendir
-            return RedirectToAction("Index", "Home");
-        }
-        public IActionResult Contact()
-        {
-
+            // HatalÄ± giriÅŸte Session'Ä± temizle
+            HttpContext.Session.Remove("admin");
+            ViewBag.LoginError = "GeÃ§ersiz kullanÄ±cÄ± adÄ± veya ÅŸifre.";
             return View();
         }
-        [HttpPost]
-        public IActionResult Contact(string Ad,int PhoneNumber, string Email, string Mesaj)
-        {
-            var UserMessage = new
-            {
-                Name = Ad,
-                Gmail = Email,
-                Number = PhoneNumber,
-                Message = Mesaj,
-            };
-            return Json(UserMessage);
-        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Logout()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
         }
     }
 }

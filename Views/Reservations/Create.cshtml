@@ -1,0 +1,47 @@
+﻿@model LibraryMVC.Models.Reservation
+@{
+    ViewData["Title"] = "Rezervasyon Ekle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 mt-3">
+            <div class="card-header py-3">
+                <h5 class="mb-0"><i class="fa-solid fa-bookmark me-2"></i>Yeni Rezervasyon Oluştur</h5>
+            </div>
+            <div class="card-body p-4">
+
+                <div class="alert alert-info mb-4" style="background-color: rgba(155, 89, 182, 0.1); border-color: #9b59b6; color: #d7bde2;">
+                    <i class="fa-solid fa-circle-info me-2"></i> Sadece şu anda <strong>ödünçte olan</strong> kitaplar için rezervasyon yapılabilir. Kitap iade edildiğinde rezerve eden üyeye öncelik tanınır.
+                </div>
+
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row g-4">
+                        <div class="col-md-12">
+                            <label asp-for="UserTC" class="form-label">Sıraya Girecek Üye</label>
+                            <select asp-for="UserTC" class="form-select form-select-lg" asp-items="ViewBag.userTC" required>
+                                <option value="">Üye seçiniz...</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="BorrowId" class="form-label">Ödünçteki Kitaplar (Aktif Emanetler)</label>
+                            <select asp-for="BorrowId" class="form-select form-select-lg" asp-items="ViewBag.borrowId" required>
+                                <option value="">Hangi emanet kayıt için sıraya girilecek?</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" style="border-color: var(--border-color);" />
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-light"><i class="fa-solid fa-arrow-left me-2"></i>Vazgeç</a>
+                        <button type="submit" class="btn btn-primary px-5"><i class="fa-solid fa-check me-2"></i>Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

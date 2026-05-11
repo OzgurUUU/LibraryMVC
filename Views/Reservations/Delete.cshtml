@@ -1,0 +1,40 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Rezervasyon İptal";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-danger mt-3" style="background-color: var(--panel-bg);">
+            <div class="card-header bg-danger text-white py-3">
+                <h5 class="mb-0"><i class="fa-solid fa-ban me-2"></i>Rezervasyon İptal Onayı</h5>
+            </div>
+            <div class="card-body p-4 text-center">
+
+                <p class="lead mb-4">Bu rezervasyonu iptal etmek istediğinize emin misiniz?</p>
+
+                <div class="p-3 mb-4 rounded text-start" style="background-color: #12121a; border: 1px solid var(--border-color);">
+                    <div class="mb-3">
+                        <small class="text-secondary d-block">Beklenen Kitap</small>
+                        <h4 style="color: var(--accent-gold); margin-bottom: 2px;">@Model.BookName</h4>
+                        <span class="badge bg-secondary">Tarih: @Model.ReservationDate.ToShortDateString()</span>
+                    </div>
+                    <hr style="border-color: var(--border-color);" />
+                    <div>
+                        <small class="text-secondary d-block">Sıradaki Üye</small>
+                        <h5 class="text-white mb-0">@Model.UserFullName</h5>
+                        <span class="text-secondary small">TC: @Model.UserTC</span>
+                    </div>
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="@Model.ReservationId" />
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-light"><i class="fa-solid fa-xmark me-2"></i>Geri Dön</a>
+                        <button type="submit" class="btn btn-danger px-4"><i class="fa-solid fa-trash me-2"></i>İptal Et ve Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

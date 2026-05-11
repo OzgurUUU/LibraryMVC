@@ -1,0 +1,63 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Kitap İade Al";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger" style="background-color: #441a1a; color: #ff8c8c; border:none;">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i> @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="card border-success mt-3" style="background-color: var(--panel-bg);">
+            <div class="card-header bg-success text-white py-3">
+                <h5 class="mb-0"><i class="fa-solid fa-clipboard-check me-2"></i>Kitap İade Onayı</h5>
+            </div>
+            <div class="card-body p-4 text-center">
+
+                <p class="lead mb-4">Aşağıdaki kitabın kütüphaneye iade edildiğini onaylıyor musunuz?</p>
+
+                <div class="p-3 mb-4 rounded text-start" style="background-color: #12121a; border: 1px solid var(--border-color);">
+                    <div class="mb-3">
+                        <small class="text-secondary d-block">Kitap Bilgisi</small>
+                        <h4 style="color: var(--accent-gold); margin-bottom: 2px;">@Model.BookName</h4>
+                        <span class="text-secondary small">ISBN: @Model.BookISBN</span>
+                    </div>
+
+                    <hr style="border-color: var(--border-color);" />
+
+                    <div class="mb-3">
+                        <small class="text-secondary d-block">Teslim Eden Üye</small>
+                        <h5 class="text-white mb-0">@Model.UserFullName</h5>
+                    </div>
+
+                    <div class="row text-center mt-4">
+                        <div class="col-6">
+                            <small class="text-secondary d-block">Veriliş Tarihi</small>
+                            <span class="text-white">@Model.BorrowStartDate.ToShortDateString()</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-secondary d-block">Son Teslim</small>
+                            <span class="text-white">@Model.BorrowEndDate.ToShortDateString()</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success text-start" style="background-color: rgba(25, 135, 84, 0.1); border: 1px solid #198754; color: #75b798;">
+                    <i class="fa-solid fa-info-circle me-2"></i> <strong>Bilgi:</strong> Onayladıktan sonra bu kayıt aktif ödünç listesinden çıkarılacak ve geçmiş (Log) arşivi tablosuna aktarılacaktır.
+                </div>
+
+                <form asp-action="Delete" method="post" class="mt-4">
+                    <input type="hidden" name="id" value="@Model.BorrowId" />
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-light"><i class="fa-solid fa-xmark me-2"></i>İptal Et</a>
+                        <button type="submit" class="btn btn-success px-4"><i class="fa-solid fa-check me-2"></i>Evet, İadeyi Onayla</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Üye Sil";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger" style="background-color: #441a1a; color: #ff8c8c; border:none;">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i> @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="card border-danger mt-3" style="background-color: var(--panel-bg);">
+            <div class="card-header bg-danger text-white py-3">
+                <h5 class="mb-0"><i class="fa-solid fa-user-xmark me-2"></i>Üye Silme Onayı</h5>
+            </div>
+            <div class="card-body p-4 text-center">
+                <div class="mb-4">
+                    <i class="fa-solid fa-circle-exclamation text-danger fa-4x mb-3"></i>
+                    <p class="lead">Bu üyeyi kalıcı olarak silmek istediğinizden emin misiniz?</p>
+                </div>
+
+                <div class="p-3 mb-4 rounded text-start" style="background-color: #12121a; border: 1px solid var(--border-color);">
+                    <h4 style="color: var(--accent-gold);">@Model.UserName @Model.UserSurname</h4>
+                    <p class="text-secondary mb-0"><strong>TC Kimlik / ID:</strong> @Model.UserTC</p>
+                </div>
+
+                <div class="alert alert-warning text-start" style="background-color: rgba(203, 161, 83, 0.1); border: 1px solid var(--accent-gold); color: var(--accent-gold);">
+                    <i class="fa-solid fa-bell me-2"></i> <strong>Uyarı:</strong> Üyenin üzerinde henüz teslim edilmemiş emanet kitap varsa sistem silme işlemine izin vermeyecektir.
+                </div>
+
+                <form asp-action="Delete" method="post" class="mt-4">
+                    <input type="hidden" name="id" value="@Model.UserTC" />
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-light"><i class="fa-solid fa-xmark me-2"></i>İptal Et</a>
+                        <button type="submit" class="btn btn-danger px-4"><i class="fa-solid fa-trash me-2"></i>Evet, Üyeyi Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,61 +1,98 @@
 ﻿@{
-    ViewData[index: "Title"] = "Login";
+    Layout = null; /* Giriş sayfasında üst menüyü istemeyiz */
 }
-@model Student
-<link href="~/css/Login.css" rel="stylesheet" />
-<form asp-action="Login" asp-controller="Home" method="post">
-    
-    <div class="giris">
-        <h1>Giriş Yap</h1>
-        <div>
-            <h3 style="display: inline">Ogrenci No :</h3>
-            <br />
-            <input asp-for="Id" type="number" placeholder="Ogrenci No" id="username" />
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sisteme Giriş - KütüphaneMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #12121a;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-image: radial-gradient(circle at center, #1a1a24 0%, #0a0a0f 100%);
+        }
+
+        .login-card {
+            background-color: #1f1f2e;
+            border: 1px solid #3b3b4f;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-icon {
+            color: #cba153;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-control {
+            background-color: #12121a;
+            border: 1px solid #3b3b4f;
+            color: #fff;
+        }
+
+            .form-control:focus {
+                background-color: #1a1a24;
+                color: #fff;
+                border-color: #cba153;
+                box-shadow: 0 0 0 0.2rem rgba(203, 161, 83, 0.25);
+            }
+
+        .btn-gold {
+            background-color: #cba153;
+            color: #12121a;
+            font-weight: bold;
+            width: 100%;
+            padding: 0.75rem;
+        }
+
+            .btn-gold:hover {
+                background-color: #b38b42;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="text-center">
+            <i class="fa-solid fa-book-open-reader login-icon"></i>
+            <h3 class="mb-4" style="color:#cba153; letter-spacing:1px;">KütüphaneMS</h3>
         </div>
 
-        <div>
-            <h3 style="display: inline">Şifre :</h3>
-            <br />
-            <input asp-for="Password" type="password"
-                   placeholder="Şifreniz"
-                   id="password"
-                   disabled="disabled" />
-        </div>
-        <br />
-        <a href="">Şifremi Unuttum</a>
-        <br />
-        <br />
-        <button type="submit" class="btn_giris" >Giriş Yap</button>
+        @if (ViewBag.LoginError != null)
+        {
+            <div class="alert alert-danger" style="background-color: #441a1a; color: #ff8c8c; border:none;">
+                <i class="fa-solid fa-circle-exclamation me-2"></i> @ViewBag.LoginError
+            </div>
+        }
 
-        <p>Hesabın yokmu ? <a asp-controller="Home" asp-action="Register">Kayıt Ol</a></p>
-        <script src="~/js/girisyap.js"></script>
+        <form asp-controller="Home" asp-action="Login" method="post">
+            <div class="mb-3">
+                <label class="form-label text-secondary"><i class="fa-solid fa-user me-2"></i>Kullanıcı Adı</label>
+                <input type="text" class="form-control" name="username" required placeholder="Admin username girin" autocomplete="off" />
+            </div>
+            <div class="mb-4">
+                <label class="form-label text-secondary"><i class="fa-solid fa-lock me-2"></i>Şifre</label>
+                <input type="password" class="form-control" name="password" required placeholder="Şifrenizi girin" />
+            </div>
+            <button type="submit" class="btn btn-gold rounded-3">GİRİŞ YAP</button>
+        </form>
     </div>
-</form>
 
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content shadow-lg border-0">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="errorModalLabel">⚠️ Giriş Hatası</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center py-4">
-                <h4 class="text-secondary">@TempData["ErrorMessage"]</h4>
-                <p class="text-muted mt-2">Lütfen bilgilerinizi kontrol edip tekrar deneyiniz.</p>
-            </div>
-            <div class="modal-footer justify-content-center border-0">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Anladım</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#errorModal').modal('show');
-        });
-    </script>
-}
+</body>
+</html>

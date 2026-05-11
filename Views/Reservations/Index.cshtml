@@ -1,0 +1,78 @@
+﻿@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Rezervasyonlar";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 style="color: var(--accent-gold);"><i class="fa-solid fa-bookmark me-2"></i>Rezervasyon Yönetimi</h2>
+        <p class="text-secondary mb-0">Ödünçteki kitaplar için bekleyen üyeleri ve rezervasyon tarihlerini yönetin.</p>
+    </div>
+    <div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm">
+            <i class="fa-solid fa-plus me-1"></i> Yeni Rezervasyon
+        </a>
+    </div>
+</div>
+
+@if (TempData["ExtensionError"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="background-color: #3b2b1a; border-color: #cba153; color: #ffdf99;">
+        <i class="fa-solid fa-circle-exclamation me-2"></i> @TempData["ExtensionError"]
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Rezervasyon No</th>
+                        <th>Tarih</th>
+                        <th>Bekleyen Üye</th>
+                        <th>Beklenen Kitap</th>
+                        <th class="text-end pe-4">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 text-secondary">#@item.ReservationId</td>
+                                <td>
+                                    <span class="badge bg-secondary"><i class="fa-solid fa-calendar-day me-1"></i> @item.ReservationDate.ToShortDateString()</span>
+                                </td>
+                                <td>
+                                    <div class="fw-bold" style="color: #fff;">@item.UserFullName</div>
+                                    <div class="small text-secondary">@item.UserTC</div>
+                                </td>
+                                <td>
+                                    <div style="color: var(--accent-gold);">@item.BookName</div>
+                                    <div class="small text-secondary"><i class="fa-solid fa-link me-1"></i>Bağlı Ödünç ID: #@item.BorrowId</div>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Delete" asp-route-id="@item.ReservationId" class="btn btn-sm btn-outline-danger" title="İptal Et / Sil">
+                                        <i class="fa-solid fa-ban"></i> İptal Et
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-secondary">
+                                <i class="fa-regular fa-bookmark fa-2x mb-2 d-block"></i>
+                                Sistemde şu an aktif bir rezervasyon bulunmuyor.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
