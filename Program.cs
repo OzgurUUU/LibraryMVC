@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
 
+using LibraryMVC.Helpers;
 namespace WebApplication1
 {
     public class Program
@@ -8,16 +7,21 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
             // Add services to the container.
-            builder.Services.AddAuthentication("MyCookieAuth")
-    .AddCookie("MyCookieAuth", options => {
-        options.LoginPath = "/Home/Login"; // Yetkisiz giriþte yönlendirilecek sayfa
-        options.LogoutPath = "/Home/Logout"; // Logout yolu
-        options.AccessDeniedPath = "/Home/AccessDenied"; // Yetki (Rol) yetersizse gidilecek sayfa
-    });
             builder.Services.AddControllersWithViews();
+
+            // 1. DatabaseHelper sýnýfýný sisteme tanýtýyoruz (Dependency Injection için þart)
+            builder.Services.AddScoped<DatabaseHelper>();
+
+            // 2. Session (Oturum Yönetimi) kullanabilmek için gerekli servisleri ekliyoruz
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60); // Oturum süresi
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -25,7 +29,6 @@ namespace WebApplication1
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -34,11 +37,14 @@ namespace WebApplication1
 
             app.UseRouting();
 
+            // 3. Session kullanýmýný aktif et (UYARI: UseAuthorization'dan ÖNCE yazýlmalýdýr!)
+            app.UseSession();
+
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Login}/{id?}"); // Sistem ilk açýldýðýnda Login ekranýna gitsin
 
             app.Run();
         }

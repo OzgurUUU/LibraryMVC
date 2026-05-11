@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\LibraryMVC.csproj": {}
+    "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC (2)\\LibraryMVC\\LibraryMVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\LibraryMVC.csproj": {
+    "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC (2)\\LibraryMVC\\LibraryMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\LibraryMVC.csproj",
+        "projectUniqueName": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC (2)\\LibraryMVC\\LibraryMVC.csproj",
         "projectName": "LibraryMVC",
-        "projectPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\LibraryMVC.csproj",
+        "projectPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC (2)\\LibraryMVC\\LibraryMVC.csproj",
         "packagesPath": "C:\\Users\\Özgür Üçdağ\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC\\obj\\",
+        "outputPath": "C:\\Users\\Özgür Üçdağ\\Desktop\\LibraryMVC (2)\\LibraryMVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -54,13 +54,9 @@
               "target": "Package",
               "version": "[2.3.0, )"
             },
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.Data.SqlClient": {
               "target": "Package",
-              "version": "[8.0.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[8.0.1, )"
+              "version": "[7.0.1, )"
             }
           },
           "imports": [
@@ -82,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
